@@ -12,7 +12,7 @@ To answer with a common measurement, every configuration is placed on the same a
 
 On that basis we propose a post-training procedure. It measures how sensitive each block's attention and MLP are to structured pruning and to weight quantization. It removes attention heads and MLP neurons, compensating the next layer by least squares, then quantizes the remaining weights, and allocates these decisions per block to reach a series of target sizes. Restricting it to quantization only, or to pruning only, gives curves that are directly comparable with each other.
 
-## What is here
+## Contents
 
 The work so far covers the two reference models, the dense baselines saved as real files, and the first published method placed on the chart. The decisions behind the protocol are listed, with their reasons, in [`DECISIONS.md`](DECISIONS.md).
 
