@@ -1,0 +1,208 @@
+diff --git a/configs/w3a32.py b/configs/w3a32.py
+new file mode 100644
+index 0000000..f4edd08
+--- /dev/null
++++ b/configs/w3a32.py
+@@ -0,0 +1,25 @@
++# weights-only variant: activations kept at full precision (32 = no quantization)
++
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.calib_size = 32
++        self.optim_size = 1024
++        self.calib_batch_size = 32
++        self.optim_batch_size = 32
++        self.w_bit = 3
++        self.a_bit = 32
++        self.s_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.matmul_head_channel_wise = True
++        self.post_softmax_quantizer = 'adalog'
++        self.post_gelu_quantizer = 'adalog'
++        # search settings
++        self.eq_n = 128
++        self.search_round = 3
++        self.fpcs = True
++        self.steps = 6
++        # optimization settings
++        self.keep_gpu = True
++        self.train_act = False
+diff --git a/configs/w4a32.py b/configs/w4a32.py
+new file mode 100644
+index 0000000..570009e
+--- /dev/null
++++ b/configs/w4a32.py
+@@ -0,0 +1,25 @@
++# weights-only variant: activations kept at full precision (32 = no quantization)
++
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.calib_size = 32
++        self.optim_size = 1024
++        self.calib_batch_size = 32
++        self.optim_batch_size = 32
++        self.w_bit = 4
++        self.a_bit = 32
++        self.s_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.matmul_head_channel_wise = True
++        self.post_softmax_quantizer = 'adalog'
++        self.post_gelu_quantizer = 'adalog'
++        # search settings
++        self.eq_n = 128
++        self.search_round = 3
++        self.fpcs = True
++        self.steps = 6
++        # optimization settings
++        self.keep_gpu = True
++        self.train_act = False
+diff --git a/configs/w6a32.py b/configs/w6a32.py
+new file mode 100644
+index 0000000..ac3dc34
+--- /dev/null
++++ b/configs/w6a32.py
+@@ -0,0 +1,25 @@
++# weights-only variant: activations kept at full precision (32 = no quantization)
++
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.calib_size = 32
++        self.optim_size = 1024
++        self.calib_batch_size = 32
++        self.optim_batch_size = 32
++        self.w_bit = 6
++        self.a_bit = 32
++        self.s_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.matmul_head_channel_wise = True
++        self.post_softmax_quantizer = 'adalog'
++        self.post_gelu_quantizer = 'adalog'
++        # search settings
++        self.eq_n = 128
++        self.search_round = 3
++        self.fpcs = True
++        self.steps = 6
++        # optimization settings
++        self.keep_gpu = True
++        self.train_act = False
+diff --git a/quant_layers/linear.py b/quant_layers/linear.py
+index 58bbe88..c358242 100644
+--- a/quant_layers/linear.py
++++ b/quant_layers/linear.py
+@@ -526,7 +526,8 @@ class AsymmetricallyBatchingQuantLinear(PTQSLBatchingQuantLinear):
+         self._initialize_calib_parameters()
+         if self.fpcs:
+             self.weight_fpcs(steps=self.steps, search_strategy=AsymmetricallyBatchingQuantLinear._search_best_w_scale_self)
+-            self.activation_fpcs(steps=self.steps, search_strategy=AsymmetricallyBatchingQuantLinear._search_best_a_scale_self)
++            if self.a_quantizer.n_bits < 32:
++                self.activation_fpcs(steps=self.steps, search_strategy=AsymmetricallyBatchingQuantLinear._search_best_a_scale_self)
+         else:
+             weight_scale_candidates, weight_zero_point_candidates = self.calculate_percentile_weight_candidates()
+             a_scale_candidates, a_zero_point_candidates = self.calculate_percentile_activation_candidates()
+@@ -536,7 +537,8 @@ class AsymmetricallyBatchingQuantLinear(PTQSLBatchingQuantLinear):
+         for e in range(self.search_round):
+             if self.fpcs:
+                 self.weight_fpcs(steps=self.steps, search_strategy=AsymmetricallyBatchingQuantLinear._search_best_w_scale)
+-                self.activation_fpcs(steps=self.steps, search_strategy=AsymmetricallyBatchingQuantLinear._search_best_a_scale)
++                if self.a_quantizer.n_bits < 32:
++                    self.activation_fpcs(steps=self.steps, search_strategy=AsymmetricallyBatchingQuantLinear._search_best_a_scale)
+             else:
+                 self._search_best_w_scale(weight_scale_candidates, weight_zero_point_candidates)
+                 self._search_best_a_scale(a_scale_candidates, a_zero_point_candidates)
+diff --git a/test_quant.py b/test_quant.py
+index 082bf80..d3dc2f2 100644
+--- a/test_quant.py
++++ b/test_quant.py
+@@ -57,6 +57,8 @@ def get_args_parser():
+                         type=int, help="size of calibration set")
+     parser.add_argument("--calib-batch-size", default=argparse.SUPPRESS,
+                         type=int, help="batchsize of calibration set")
++    parser.add_argument("--calib-list", default=None, type=str,
++                        help="file with one train image per line (wnid/file); calibration takes the first N")
+     parser.add_argument("--val-batch-size", default=200,
+                         type=int, help="batchsize of validation set")
+     parser.add_argument("--num-workers", default=8, type=int,
+@@ -208,7 +210,7 @@ def main(args):
+                 val_loss, val_prec1, val_prec5 = validate(val_loader, model, criterion, print_freq=args.print_freq, device=device)
+         else:
+             logging.info("{} - start calibration".format(get_cur_time()))
+-            calib_loader = g.calib_loader(num=cfg.calib_size, batch_size=cfg.calib_batch_size, seed=args.seed)
++            calib_loader = g.calib_loader(num=cfg.calib_size, batch_size=cfg.calib_batch_size, seed=args.seed, calib_list=args.calib_list)
+             quant_calibrator = QuantCalibrator(model, calib_loader)
+             quant_calibrator.batching_quant_calib()
+             model = wrap_reparamed_modules_in_net(model)
+@@ -222,7 +224,7 @@ def main(args):
+     
+     if args.optimize:
+         logging.info('Building calibrator ...')
+-        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed)
++        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed, calib_list=args.calib_list)
+         logging.info("{} - start block reconstruction".format(get_cur_time()))
+         block_reconstructor = BlockReconstructor(model, full_model, calib_loader)
+         block_reconstructor.reconstruct_model(quant_act=cfg.train_act, keep_gpu=cfg.keep_gpu)
+@@ -231,7 +233,7 @@ def main(args):
+         save_model(model, args, cfg, mode='optimize')
+     if args.load_optimize_checkpoint:
+         logging.info('Building calibrator ...')
+-        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed)
++        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed, calib_list=args.calib_list)
+         model = load_model(model, args, device, mode='optimize')
+     if args.optimize or args.test_optimize_checkpoint:
+         logging.info('Validating on calibration set after block reconstruction ...')
+diff --git a/utils/datasets.py b/utils/datasets.py
+index d8e1de6..27c5a6a 100644
+--- a/utils/datasets.py
++++ b/utils/datasets.py
+@@ -59,9 +59,14 @@ class LoaderGenerator():
+         assert self.val_set is not None
+         return torch.utils.data.DataLoader(self.val_set, batch_size=self.val_batch_size, shuffle=False, **self.val_loader_kwargs)
+ 
+-    def calib_loader(self, num=1024, batch_size=32, seed=3, in_memory=True):
++    def calib_loader(self, num=1024, batch_size=32, seed=3, in_memory=True, calib_list=None):
+         np.random.seed(seed)
+         inds = np.random.permutation(len(self.train_set))[:num]
++        if calib_list is not None:
++            # shared protocol list: the first `num` files, in the list's order
++            names = [l.strip() for l in open(calib_list) if l.strip()][:num]
++            where = {os.path.relpath(f, os.path.join(self.root, 'train')): i for i, (f, _) in enumerate(self.train_set.samples)}
++            inds = [where[n] for n in names]
+         if in_memory:
+             preloaded_data = [self.train_set[i] for i in inds]
+             self._calib_set = CacheDataset(preloaded_data)
+diff --git a/utils/wrap_net.py b/utils/wrap_net.py
+index 18ee4d0..6fd58f0 100644
+--- a/utils/wrap_net.py
++++ b/utils/wrap_net.py
+@@ -94,7 +94,7 @@ def wrap_modules_in_net(model, cfg, reparam=False):
+             new_module.weight.data.copy_(module.weight.data)
+             new_module.bias.data.copy_(module.bias.data)
+             setattr(father_module, name[idx:], new_module)
+-        if isinstance(module, MatMul):
++        if isinstance(module, MatMul) and cfg.a_bit < 32:
+             idx = idx + 1 if idx != 0 else idx
+             matmul_kwargs = {
+                 'B_bit': cfg.a_bit,
+@@ -136,7 +136,7 @@ def wrap_modules_in_net(model, cfg, reparam=False):
+                 'steps': cfg.steps,
+             }
+             idx = idx + 1 if idx != 0 else idx
+-            if cur_a_bit == cfg.w_bit and reparam and ('qkv' in name or 'reduction' in name or 'fc1' in name):
++            if cfg.a_bit < 32 and cur_a_bit == cfg.w_bit and reparam and ('qkv' in name or 'reduction' in name or 'fc1' in name):
+                 idxx = father_name.rfind('.')
+                 idxx = 0 if idxx == -1 else idxx
+                 grandfather_name = father_name[:idxx]
+@@ -151,7 +151,7 @@ def wrap_modules_in_net(model, cfg, reparam=False):
+                     new_module.prev_layer = grandfather_module.norm2
+                 if 'reduction' in name:
+                     new_module.prev_layer = father_module.norm
+-            elif 'fc2' in name and cfg.post_gelu_quantizer in ['adalog', 'log2', 'logsqrt2', 'ptq4vit']:
++            elif 'fc2' in name and cfg.a_bit < 32 and cfg.post_gelu_quantizer in ['adalog', 'log2', 'logsqrt2', 'ptq4vit']:
+                 if cfg.post_gelu_quantizer in ['adalog', 'log2', 'logsqrt2']:
+                     new_module = PostGeluLogBasedBatchingQuantLinear(
+                         **linear_kwargs,

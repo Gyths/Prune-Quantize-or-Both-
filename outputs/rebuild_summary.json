@@ -1,0 +1,134 @@
+{
+  "params": {
+    "deit_s": 22050664,
+    "deit_ti": 5717416
+  },
+  "equivalence_real_images": {
+    "max_abs_logit_diff": 1.6689300537109375e-05,
+    "max_rel_logit_diff": 1.717296868264384e-06,
+    "max_abs_block_diff": 0.001949310302734375,
+    "argmax_agreement": 1.0
+  },
+  "imagenet_v2": {
+    "acc": {
+      "ours_s": {
+        "top1": 68.52000000000001,
+        "ci95": [
+          67.63,
+          69.48
+        ],
+        "top5": 88.1600022315979
+      },
+      "timm_s": {
+        "top1": 68.52000000000001,
+        "ci95": [
+          67.63,
+          69.48
+        ],
+        "top5": 88.1600022315979
+      },
+      "ours_ti": {
+        "top1": 59.809999999999995,
+        "ci95": [
+          58.86,
+          60.84
+        ],
+        "top5": 82.69000053405762
+      },
+      "timm_ti": {
+        "top1": 59.809999999999995,
+        "ci95": [
+          58.86,
+          60.84
+        ],
+        "top5": 82.69000053405762
+      }
+    },
+    "agreement_s": 1.0,
+    "agreement_ti": 1.0,
+    "published_timm": {
+      "deit_s": 68.53,
+      "deit_ti": 59.92
+    }
+  },
+  "breakdown_deit_s": {
+    "attention (qkv + proj)": 7096320,
+    "MLP (fc1 + fc2)": 14178816,
+    "LayerNorms": 19200,
+    "patch embedding": 295296,
+    "cls + position embeddings": 76032,
+    "classifier head": 385000
+  },
+  "sizes_mb": [
+    {
+      "model": "DeiT-S",
+      "format": "FP32",
+      "nominal": 88.202656,
+      "real_or_accounted": 88.216496,
+      "measured_file": true
+    },
+    {
+      "model": "DeiT-S",
+      "format": "FP16",
+      "nominal": 44.101328,
+      "real_or_accounted": 44.115144,
+      "measured_file": true
+    },
+    {
+      "model": "DeiT-S",
+      "format": "INT8",
+      "nominal": 22.050664,
+      "real_or_accounted": 22.950608,
+      "measured_file": false
+    },
+    {
+      "model": "DeiT-S",
+      "format": "INT6",
+      "nominal": 16.537998,
+      "real_or_accounted": 18.886352,
+      "measured_file": false
+    },
+    {
+      "model": "DeiT-S",
+      "format": "INT4",
+      "nominal": 11.025332,
+      "real_or_accounted": 13.577936,
+      "measured_file": false
+    },
+    {
+      "model": "DeiT-S",
+      "format": "INT3",
+      "nominal": 8.268999,
+      "real_or_accounted": 10.923728,
+      "measured_file": false
+    },
+    {
+      "model": "DeiT-Ti",
+      "format": "FP32",
+      "nominal": 22.869664,
+      "real_or_accounted": 22.883344,
+      "measured_file": true
+    },
+    {
+      "model": "DeiT-Ti",
+      "format": "FP16",
+      "nominal": 11.434832,
+      "real_or_accounted": 11.448352,
+      "measured_file": true
+    },
+    {
+      "model": "DeiT-Ti",
+      "format": "INT8",
+      "nominal": 5.717416,
+      "real_or_accounted": 6.167888,
+      "measured_file": false
+    },
+    {
+      "model": "DeiT-Ti",
+      "format": "INT4",
+      "nominal": 2.858708,
+      "real_or_accounted": 3.803984,
+      "measured_file": false
+    }
+  ]
+}
