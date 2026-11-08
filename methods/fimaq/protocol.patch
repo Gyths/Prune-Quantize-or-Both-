@@ -1,0 +1,434 @@
+diff --git a/configs/2bit/w2a32.py b/configs/2bit/w2a32.py
+new file mode 100644
+index 0000000..5dbfbe6
+--- /dev/null
++++ b/configs/2bit/w2a32.py
+@@ -0,0 +1,29 @@
++# weights-only at 2 bits: not a published setting, the settings of w3a32.py with only the weight bits changed
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.optim_size = 1024
++        self.calib_size = 128
++        self.optim_batch_size = 32
++        self.calib_batch_size = 32
++        self.w_bit = 2
++        self.a_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.calib_metric = 'mse'
++        self.matmul_head_channel_wise = True
++        self.token_channel_wise = True
++        self.eq_n = 128
++        self.search_round = 3
++        # optimization settings
++        self.keep_gpu = True
++        self.optim_metric = 'fisher_dplr'
++        self.temp = 20
++        # fisher settings
++        self.k = 5
++        self.p1 = 1.0
++        self.p2 = 1.0
++        self.dis_mode = 'q'
++        # qdrop settings
++        self.optim_mode = 'qdrop'
++        self.drop_prob = 0.5
+\ No newline at end of file
+diff --git a/configs/3bit/w3a32.py b/configs/3bit/w3a32.py
+new file mode 100644
+index 0000000..9270f31
+--- /dev/null
++++ b/configs/3bit/w3a32.py
+@@ -0,0 +1,29 @@
++# weights-only variant of best.py: activations kept at full precision (32 = no quantization)
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.optim_size = 1024
++        self.calib_size = 128
++        self.optim_batch_size = 32
++        self.calib_batch_size = 32
++        self.w_bit = 3
++        self.a_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.calib_metric = 'mse'
++        self.matmul_head_channel_wise = True
++        self.token_channel_wise = True
++        self.eq_n = 128
++        self.search_round = 3
++        # optimization settings
++        self.keep_gpu = True
++        self.optim_metric = 'fisher_dplr'
++        self.temp = 20
++        # fisher settings
++        self.k = 5
++        self.p1 = 1.0
++        self.p2 = 1.0
++        self.dis_mode = 'q'
++        # qdrop settings
++        self.optim_mode = 'qdrop'
++        self.drop_prob = 0.5
+\ No newline at end of file
+diff --git a/configs/4bit/w4a32.py b/configs/4bit/w4a32.py
+new file mode 100644
+index 0000000..4f33c5e
+--- /dev/null
++++ b/configs/4bit/w4a32.py
+@@ -0,0 +1,29 @@
++# weights-only variant of best.py: activations kept at full precision (32 = no quantization)
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.optim_size = 1024
++        self.calib_size = 128
++        self.optim_batch_size = 32
++        self.calib_batch_size = 32
++        self.w_bit = 4
++        self.a_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.calib_metric = 'mse'
++        self.matmul_head_channel_wise = True
++        self.token_channel_wise = True
++        self.eq_n = 128
++        self.search_round = 3
++        # optimization settings
++        self.keep_gpu = True
++        self.optim_metric = 'fisher_dplr'
++        self.temp = 20
++        # fisher settings
++        self.k = 5
++        self.p1 = 1.0
++        self.p2 = 1.0
++        self.dis_mode = 'q'
++        # qdrop settings
++        self.optim_mode = 'qdrop'
++        self.drop_prob = 0.5
+\ No newline at end of file
+diff --git a/configs/6bit/w6a32.py b/configs/6bit/w6a32.py
+new file mode 100644
+index 0000000..a56107d
+--- /dev/null
++++ b/configs/6bit/w6a32.py
+@@ -0,0 +1,29 @@
++# weights-only variant of best.py: activations kept at full precision (32 = no quantization)
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.optim_size = 1024
++        self.calib_size = 128
++        self.optim_batch_size = 32
++        self.calib_batch_size = 32
++        self.w_bit = 6
++        self.a_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.calib_metric = 'mse'
++        self.matmul_head_channel_wise = True
++        self.token_channel_wise = True
++        self.eq_n = 128
++        self.search_round = 3
++        # optimization settings
++        self.keep_gpu = True
++        self.optim_metric = 'fisher_dplr'
++        self.temp = 20
++        # fisher settings
++        self.k = 5
++        self.p1 = 1.0
++        self.p2 = 1.0
++        self.dis_mode = 'q'
++        # qdrop settings
++        self.optim_mode = 'qdrop'
++        self.drop_prob = 0.5
+\ No newline at end of file
+diff --git a/quant_layers/linear.py b/quant_layers/linear.py
+index 7407530..a82bc28 100644
+--- a/quant_layers/linear.py
++++ b/quant_layers/linear.py
+@@ -504,16 +504,20 @@ class AsymmetricallyBatchingQuantLinear(PTQSLBatchingQuantLinear):
+         self._initialize_calib_parameters()
+ 
+         weight_scale_candidates, weight_zero_point_candidates = self.calculate_percentile_weight_candidates()
+-        a_scale_candidates, a_zero_point_candidates = self.calculate_percentile_activation_candidates()
++        quant_act = self.a_quantizer.n_bits < 32
++        if quant_act:
++            a_scale_candidates, a_zero_point_candidates = self.calculate_percentile_activation_candidates()
+         self._search_best_w_scale_self(weight_scale_candidates, weight_zero_point_candidates)
+-        self._search_best_a_scale_self(a_scale_candidates, a_zero_point_candidates)
++        if quant_act:
++            self._search_best_a_scale_self(a_scale_candidates, a_zero_point_candidates)
+         for e in range(self.search_round):
+             torch.cuda.empty_cache()
+             self._search_best_w_scale(weight_scale_candidates, weight_zero_point_candidates)
+             torch.cuda.empty_cache()
+-            self._search_best_a_scale(a_scale_candidates, a_zero_point_candidates)
++            if quant_act:
++                self._search_best_a_scale(a_scale_candidates, a_zero_point_candidates)
+         
+-        if (self.token_channel_wise and len(self.raw_input.shape) == 3):
++        if (quant_act and self.token_channel_wise and len(self.raw_input.shape) == 3):
+             B, N, C = self.raw_input.shape
+             token_wise_scale = self.a_quantizer.scale.expand(1, N, 1)
+             del self.a_quantizer.scale
+diff --git a/test_quant.py b/test_quant.py
+index 53d88ca..cb2385b 100644
+--- a/test_quant.py
++++ b/test_quant.py
+@@ -13,7 +13,7 @@ import time
+ import utils.datasets as mydatasets
+ from utils.calibrator import QuantCalibrator
+ from utils.block_recon import BlockReconstructor
+-from utils.wrap_net import wrap_modules_in_net, wrap_reparamed_modules_in_net
++from utils.wrap_net import load_pruned, wrap_modules_in_net, wrap_reparamed_modules_in_net
+ from utils.test_utils import *
+ from datetime import datetime
+ import logging
+@@ -59,6 +59,19 @@ def get_args_parser():
+                         type=int, help="size of calibration set")
+     parser.add_argument("--calib-batch-size", default=argparse.SUPPRESS,
+                         type=int, help="batchsize of calibration set")
++    parser.add_argument("--score-name", default=None, type=str,
++                        help="after the run, score the model in memory on our three test sets under this name")
++    parser.add_argument("--score-out", default=None, type=str, help="summary json the score is added to")
++    parser.add_argument("--score-per-image", default=None, type=str, help="npz the per-image results are added to")
++    parser.add_argument("--repo", default=None, type=str, help="our repository, for deitc")
++    parser.add_argument("--layer-bits", default=None, type=str,
++                        help="json file {layer.weight: bits} for a model that mixes widths; other layers keep w_bit")
++    parser.add_argument("--float-points", default=None, type=str,
++                        help="comma-separated activation points left at full precision: Q,K,scores,V,qkv,proj,fc1,fc2,head")
++    parser.add_argument("--pruned-weights", default=None, type=str,
++                        help="safetensors file of a pruned DeiT to quantize instead of the pretrained one")
++    parser.add_argument("--calib-list", default=None, type=str,
++                        help="file with one train image per line (wnid/file); calibration takes the first N")
+     parser.add_argument("--optim-batch-size", default=argparse.SUPPRESS,
+                         type=int, help="batchsize of calibration set")
+     parser.add_argument("--val-batch-size", default=200,
+@@ -151,6 +164,8 @@ def load_model(model, args, device, mode='calibrate'):
+ 
+ def main(args):
+     logging.info("{} - start the process.".format(get_cur_time()))
++    stages = {}  # protocol: wall-clock seconds and peak GPU memory of each stage
++    torch.cuda.reset_peak_memory_stats()
+     logging.info(str(args))
+ 
+     dir_path = os.path.dirname(os.path.abspath(args.config))
+@@ -172,6 +187,11 @@ def main(args):
+     cfg.drop_prob = args.drop_prob if hasattr(args, 'drop_prob') else cfg.drop_prob
+     cfg.w_bit = args.w_bit if hasattr(args, 'w_bit') else cfg.w_bit
+     cfg.a_bit = args.a_bit if hasattr(args, 'a_bit') else cfg.a_bit
++    if args.float_points:
++        cfg.float_points = tuple(args.float_points.split(","))
++    if args.layer_bits:
++        import json
++        cfg.layer_bits = json.load(open(args.layer_bits))
+     cfg.k = args.k if hasattr(args, 'k') else cfg.k
+     cfg.p1 = args.p1 if hasattr(args, 'p1') else cfg.p1
+     cfg.p2 = args.p2 if hasattr(args, 'p2') else cfg.p2
+@@ -208,6 +228,9 @@ def main(args):
+         model = timm.create_model(model_zoo[args.model], checkpoint_path='./checkpoints/vit_raw/{}.bin'.format(model_zoo[args.model]))
+     except:
+         model = timm.create_model(model_zoo[args.model], pretrained=True)
++    if args.pruned_weights:
++        from safetensors.torch import load_file
++        model = load_pruned(model, load_file(args.pruned_weights))
+ 
+     model.to(device)
+     model.eval()
+@@ -233,11 +256,15 @@ def main(args):
+                 val_loss, val_prec1, val_prec5 = validate(val_loader, model, criterion, print_freq=args.print_freq, device=device)
+         else:
+             logging.info("{} - start {} guided calibration".format(get_cur_time(), cfg.calib_metric))
+-            calib_loader = g.calib_loader(num=cfg.calib_size, batch_size=cfg.calib_batch_size, seed=args.seed)
++            calib_loader = g.calib_loader(num=cfg.calib_size, batch_size=cfg.calib_batch_size, seed=args.seed, calib_list=args.calib_list)
++            t_stage = time.time()
+             quant_calibrator = QuantCalibrator(model, calib_loader)
+             quant_calibrator.batching_quant_calib()
+             model = wrap_reparamed_modules_in_net(model)
+             model.to(device)
++            torch.cuda.synchronize()
++            stages["calibration_s"] = time.time() - t_stage
++            stages["peak_gpu_mib_after_calibration"] = torch.cuda.max_memory_allocated() / 2**20
+             logging.info("{} - {} guided calibration finished.".format(get_cur_time(), cfg.calib_metric))
+             save_model(model, args, cfg, mode='calibrate')
+             logging.info('Validating after calibration ...')
+@@ -245,21 +272,33 @@ def main(args):
+ 
+     if args.optimize:
+         logging.info('Building calibrator ...')
+-        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed)
++        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed, calib_list=args.calib_list)
+         logging.info("{} - start {} guided block reconstruction".format(get_cur_time(), cfg.optim_metric))
++        t_stage = time.time()
+         block_reconstructor = BlockReconstructor(model, cfg.optim_batch_size, calib_loader, metric=cfg.optim_metric, temp=cfg.temp, k=cfg.k, dis_mode=cfg.dis_mode, p1=cfg.p1, p2=cfg.p2)
+-        block_reconstructor.reconstruct_model(quant_act=True, mode=cfg.optim_mode, drop_prob=cfg.drop_prob, keep_gpu=cfg.keep_gpu)
++        block_reconstructor.reconstruct_model(quant_act=cfg.a_bit < 32, mode=cfg.optim_mode, drop_prob=cfg.drop_prob, keep_gpu=cfg.keep_gpu)
++        torch.cuda.synchronize()
++        stages["block_reconstruction_s"] = time.time() - t_stage
++        stages["peak_gpu_mib_after_block_reconstruction"] = torch.cuda.max_memory_allocated() / 2**20
+         logging.info("{} - {} guided block reconstruction finished.".format(get_cur_time(), cfg.optim_metric))
+         save_model(model, args, cfg, mode='optimize')
+     if args.load_optimize_checkpoint:
+         logging.info('Building calibrator ...')
+-        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed)
++        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed, calib_list=args.calib_list)
+         model = load_model(model, args, device, mode='optimize')
+     if args.optimize or args.test_optimize_checkpoint:
+         logging.info('Validating on calibration set after block reconstruction ...')
+         val_loss, val_prec1, val_prec5 = validate(calib_loader, model, criterion, print_freq=args.print_freq, device=device)
+         logging.info('Validating on test set after block reconstruction ...')
+         val_loss, val_prec1, val_prec5 = validate(val_loader, model, criterion, print_freq=args.print_freq, device=device)
++    logging.info("protocol stages: {}".format(stages))
++    if args.score_name:
++        sys.path.insert(0, args.repo)
++        from deitc.evaluate import score_in_process
++        record = {"run": "as published" if cfg.a_bit < 32 else "weights-only", "config": args.config,
++                  "w_bit": cfg.w_bit, "a_bit": cfg.a_bit, "calib_size": cfg.calib_size, "optim_size": cfg.optim_size,
++                  "reconstruct_mlp": bool(getattr(args, "reconstruct_mlp", False)), **stages}
++        score_in_process(model, g.val_transform, args.score_name, args.score_out, args.score_per_image, record, device)
+     logging.info("{} - finished the process.".format(get_cur_time()))
+  
+ if __name__ == "__main__":
+diff --git a/utils/datasets.py b/utils/datasets.py
+index d8e1de6..27c5a6a 100644
+--- a/utils/datasets.py
++++ b/utils/datasets.py
+@@ -59,9 +59,14 @@ class LoaderGenerator():
+         assert self.val_set is not None
+         return torch.utils.data.DataLoader(self.val_set, batch_size=self.val_batch_size, shuffle=False, **self.val_loader_kwargs)
+ 
+-    def calib_loader(self, num=1024, batch_size=32, seed=3, in_memory=True):
++    def calib_loader(self, num=1024, batch_size=32, seed=3, in_memory=True, calib_list=None):
+         np.random.seed(seed)
+         inds = np.random.permutation(len(self.train_set))[:num]
++        if calib_list is not None:
++            # shared protocol list: the first `num` files, in the list's order
++            names = [l.strip() for l in open(calib_list) if l.strip()][:num]
++            where = {os.path.relpath(f, os.path.join(self.root, 'train')): i for i, (f, _) in enumerate(self.train_set.samples)}
++            inds = [where[n] for n in names]
+         if in_memory:
+             preloaded_data = [self.train_set[i] for i in inds]
+             self._calib_set = CacheDataset(preloaded_data)
+diff --git a/utils/wrap_net.py b/utils/wrap_net.py
+index aa58244..9150fcb 100644
+--- a/utils/wrap_net.py
++++ b/utils/wrap_net.py
+@@ -19,8 +19,13 @@ class MatMul(nn.Module):
+ def vit_attn_forward(self, x):
+     B, N, C = x.shape
+     x = self.qkv(x)
+-    qkv = x.reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
+-    q, k, v = (qkv[0], qkv[1], qkv[2])
++    if hasattr(self, 'qk_dim'):  # a pruned model: Q and K are narrower than V, the attention scale stays as it was
++        H = self.num_heads
++        q, k, v = [t.reshape(B, N, H, -1).transpose(1, 2)
++                   for t in x.split([H * self.qk_dim, H * self.qk_dim, H * (C // H)], dim=-1)]
++    else:
++        qkv = x.reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
++        q, k, v = (qkv[0], qkv[1], qkv[2])
+     q, k = self.q_norm(q), self.k_norm(k)
+     attn = self.matmul1(q, k.transpose(-2, -1)) * self.scale
+     attn = attn.softmax(dim=-1)
+@@ -32,6 +37,19 @@ def vit_attn_forward(self, x):
+     return x
+ 
+ 
++def load_pruned(model, sd):
++    """Resize the block layers of a timm DeiT to the sizes in a pruned state_dict and load it strictly."""
++    for i, blk in enumerate(model.blocks):
++        fc1 = sd[f'blocks.{i}.mlp.fc1.weight']
++        blk.mlp.fc1 = nn.Linear(fc1.shape[1], fc1.shape[0])
++        blk.mlp.fc2 = nn.Linear(fc1.shape[0], fc1.shape[1])
++        rows, dim = sd[f'blocks.{i}.attn.qkv.weight'].shape
++        blk.attn.qkv = nn.Linear(dim, rows)
++        blk.attn.qk_dim = (rows // blk.attn.num_heads - blk.attn.head_dim) // 2
++    model.load_state_dict(sd, strict=True)
++    return model
++
++
+ def swin_attn_forward(self, x, mask=None):
+     B_, N, C = x.shape
+     x = self.qkv(x)
+@@ -53,6 +71,7 @@ def swin_attn_forward(self, x, mask=None):
+     
+     
+ def wrap_modules_in_net(model, cfg, reparam=False):
++    fp = getattr(cfg, 'float_points', ())  # activation points left at full precision: Q, K, scores, V, qkv, proj, fc1, fc2, head
+     for name, module in model.named_modules():
+         if isinstance(module, Attention):
+             setattr(module, "matmul1", MatMul())
+@@ -83,7 +102,7 @@ def wrap_modules_in_net(model, cfg, reparam=False):
+                 kernel_size = module.kernel_size,
+                 stride = module.stride,
+                 mode = 'raw',
+-                w_bit = cfg.w_bit,
++                w_bit = getattr(cfg, 'layer_bits', {}).get(name + '.weight', cfg.w_bit),
+                 a_bit = cfg.qconv_a_bit,
+                 metric = cfg.calib_metric,
+                 calib_batch_size = cfg.calib_batch_size,
+@@ -93,11 +112,11 @@ def wrap_modules_in_net(model, cfg, reparam=False):
+             new_module.weight.data.copy_(module.weight.data)
+             new_module.bias.data.copy_(module.bias.data)
+             setattr(father_module, name[idx:], new_module)
+-        if isinstance(module, MatMul):
++        if isinstance(module, MatMul) and cfg.a_bit < 32:
+             idx = idx + 1 if idx != 0 else idx
+             new_module = AsymmetricallyBatchingQuantMatMul(
+-                A_bit = cfg.a_bit,
+-                B_bit = cfg.a_bit,
++                A_bit = 32 if ('matmul1' in name and 'Q' in fp) or ('matmul2' in name and 'scores' in fp) else cfg.a_bit,
++                B_bit = 32 if ('matmul1' in name and 'K' in fp) or ('matmul2' in name and 'V' in fp) else cfg.a_bit,
+                 mode = 'raw',
+                 metric = cfg.calib_metric,
+                 calib_batch_size = cfg.calib_batch_size,
+@@ -110,12 +129,14 @@ def wrap_modules_in_net(model, cfg, reparam=False):
+             setattr(father_module, name[idx:], new_module)
+         if isinstance(module, nn.Linear):
+             cur_a_bit = cfg.qhead_a_bit if 'head' in name else cfg.a_bit
++            if any(p in name for p in fp if p in ('qkv', 'proj', 'fc1', 'fc2', 'head')):
++                cur_a_bit = 32
+             linear_kwargs = {
+                 'in_features': module.in_features,
+                 'out_features': module.out_features,
+                 'bias': module.bias is not None,
+                 'mode': 'raw',
+-                'w_bit': cfg.w_bit,
++                'w_bit': getattr(cfg, 'layer_bits', {}).get(name + '.weight', cfg.w_bit),
+                 'a_bit': cur_a_bit,
+                 'metric': cfg.calib_metric,
+                 'calib_batch_size': cfg.calib_batch_size,
+diff --git a/configs/8bit/best.py b/configs/8bit/best.py
+new file mode 100644
+index 0000000..79dda45
+--- /dev/null
++++ b/configs/8bit/best.py
+@@ -0,0 +1,28 @@
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.optim_size = 1024
++        self.calib_size = 128
++        self.optim_batch_size = 32
++        self.calib_batch_size = 32
++        self.w_bit = 8
++        self.a_bit = 8
++        self.qconv_a_bit = 8
++        self.qhead_a_bit = 8
++        self.calib_metric = 'mse'
++        self.matmul_head_channel_wise = True
++        self.token_channel_wise = True
++        self.eq_n = 128
++        self.search_round = 3
++        # optimization settings
++        self.keep_gpu = True
++        self.optim_metric = 'fisher_dplr'
++        self.temp = 20
++        # fisher settings
++        self.k = 5
++        self.p1 = 1.0
++        self.p2 = 1.0
++        self.dis_mode = 'q'
++        # qdrop settings
++        self.optim_mode = 'qdrop'
++        self.drop_prob = 0.5
+\ No newline at end of file

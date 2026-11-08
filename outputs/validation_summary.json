@@ -1,0 +1,979 @@
+{
+  "RTN W3 per row, AdaLog's layers": {
+    "file": "outputs/artifacts/rtn_rows_w3.safetensors",
+    "size_mb": 8.775568,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 63.007999999999996,
+        "ci95": [
+          62.566,
+          63.452
+        ],
+        "vs_fp32": {
+          "diff": -16.848000000000006,
+          "ci95": [
+            -17.2481,
+            -16.44995
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 50.1,
+        "ci95": [
+          49.10975,
+          51.1
+        ],
+        "vs_fp32": {
+          "diff": -18.42,
+          "ci95": [
+            -19.32,
+            -17.559750000000005
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 29.666666666666668,
+        "ci95": [
+          29.11325,
+          30.166750000000004
+        ],
+        "vs_fp32": {
+          "diff": -12.57333333333333,
+          "ci95": [
+            -13.016666666666667,
+            -12.09
+          ]
+        }
+      }
+    }
+  },
+  "RTN W4 per row, AdaLog's layers": {
+    "file": "outputs/artifacts/rtn_rows_w4.safetensors",
+    "size_mb": 11.514656,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 77.63600000000001,
+        "ci95": [
+          77.26595,
+          78.036
+        ],
+        "vs_fp32": {
+          "diff": -2.2199999999999998,
+          "ci95": [
+            -2.44,
+            -1.9959999999999998
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 65.92,
+        "ci95": [
+          64.97,
+          66.83
+        ],
+        "vs_fp32": {
+          "diff": -2.6000000000000023,
+          "ci95": [
+            -3.1399999999999997,
+            -2.06
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 39.486666666666665,
+        "ci95": [
+          38.92983333333333,
+          40.02333333333333
+        ],
+        "vs_fp32": {
+          "diff": -2.7533333333333356,
+          "ci95": [
+            -3.063333333333333,
+            -2.419916666666667
+          ]
+        }
+      }
+    }
+  },
+  "RTN W6 per row, AdaLog's layers": {
+    "file": "outputs/artifacts/rtn_rows_w6.safetensors",
+    "size_mb": 16.99284,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.746,
+        "ci95": [
+          79.38,
+          80.11805
+        ],
+        "vs_fp32": {
+          "diff": -0.11000000000001009,
+          "ci95": [
+            -0.214,
+            -0.01
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 68.2,
+        "ci95": [
+          67.32000000000001,
+          69.18025
+        ],
+        "vs_fp32": {
+          "diff": -0.31999999999999806,
+          "ci95": [
+            -0.58,
+            -0.06
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 41.88,
+        "ci95": [
+          41.31,
+          42.42666666666667
+        ],
+        "vs_fp32": {
+          "diff": -0.3599999999999992,
+          "ci95": [
+            -0.5167499999999999,
+            -0.19666666666666666
+          ]
+        }
+      }
+    }
+  },
+  "weights of adalog_w3a3, activations FP32": {
+    "file": "outputs/artifacts/adalog_w3a3.safetensors",
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 45.995999999999995,
+        "ci95": [
+          45.556000000000004,
+          46.422050000000006
+        ],
+        "vs_fp32": {
+          "diff": -33.86000000000001,
+          "ci95": [
+            -34.33805,
+            -33.398
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 34.64,
+        "ci95": [
+          33.73,
+          35.63
+        ],
+        "vs_fp32": {
+          "diff": -33.88,
+          "ci95": [
+            -34.83,
+            -32.84
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 17.283333333333335,
+        "ci95": [
+          16.86325,
+          17.703416666666666
+        ],
+        "vs_fp32": {
+          "diff": -24.956666666666667,
+          "ci95": [
+            -25.476749999999996,
+            -24.416583333333335
+          ]
+        }
+      }
+    }
+  },
+  "weights of adalog_w4a4, activations FP32": {
+    "file": "outputs/artifacts/adalog_w4a4.safetensors",
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 76.254,
+        "ci95": [
+          75.86595,
+          76.63799999999999
+        ],
+        "vs_fp32": {
+          "diff": -3.602000000000005,
+          "ci95": [
+            -3.856,
+            -3.3519500000000004
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 63.72,
+        "ci95": [
+          62.74949999999999,
+          64.71000000000001
+        ],
+        "vs_fp32": {
+          "diff": -4.800000000000004,
+          "ci95": [
+            -5.38,
+            -4.189750000000002
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 36.89666666666667,
+        "ci95": [
+          36.34325,
+          37.433416666666666
+        ],
+        "vs_fp32": {
+          "diff": -5.343333333333334,
+          "ci95": [
+            -5.680083333333334,
+            -4.983333333333333
+          ]
+        }
+      }
+    }
+  },
+  "weights of adalog_w6a6, activations FP32": {
+    "file": "outputs/artifacts/adalog_w6a6.safetensors",
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.226,
+        "ci95": [
+          78.87185,
+          79.60804999999999
+        ],
+        "vs_fp32": {
+          "diff": -0.6300000000000083,
+          "ci95": [
+            -0.796,
+            -0.4759500000000003
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 67.55,
+        "ci95": [
+          66.66,
+          68.52025
+        ],
+        "vs_fp32": {
+          "diff": -0.9700000000000042,
+          "ci95": [
+            -1.3599999999999999,
+            -0.5597500000000013
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 40.52,
+        "ci95": [
+          39.94333333333333,
+          41.05
+        ],
+        "vs_fp32": {
+          "diff": -1.7199999999999993,
+          "ci95": [
+            -1.9666666666666666,
+            -1.4833333333333334
+          ]
+        }
+      }
+    }
+  },
+  "AdaLog W3A3, authors' random calibration draw": {
+    "note": "test_quant.py --calibrate without --calib-list: 32 images drawn with np.random seed 5 from our 8,716-image training pool (not the full train set, so not the authors' exact images); scored by AdaLog's own code on ImageNet-1k val only",
+    "log": "third_party/AdaLog-protocol/run_native_w3a3.log",
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 20.662
+      }
+    },
+    "ours_with_calib_seed0": 23.65,
+    "paper": 24.47
+  },
+  "AdaLog W4A4, authors' random calibration draw": {
+    "note": "test_quant.py --calibrate without --calib-list: 32 images drawn with np.random seed 5 from our 8,716-image training pool (not the full train set, so not the authors' exact images); scored by AdaLog's own code on ImageNet-1k val only",
+    "log": "third_party/AdaLog-protocol/run_native_w4a4.log",
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 72.4
+      }
+    },
+    "ours_with_calib_seed0": 72.58,
+    "paper": 72.06
+  },
+  "FIMA-Q W4, in the method's forward": {
+    "run": "weights-only",
+    "config": "./configs/4bit/w4a32.py",
+    "w_bit": 4,
+    "a_bit": 32,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 80.41332054138184,
+    "peak_gpu_mib_after_calibration": 4406.365234375,
+    "block_reconstruction_s": 2792.4099860191345,
+    "peak_gpu_mib_after_block_reconstruction": 4406.365234375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.54,
+        "ci95": [
+          79.156,
+          79.91805
+        ],
+        "vs_fp32": {
+          "diff": -0.31600000000000517,
+          "ci95": [
+            -0.462,
+            -0.182
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 68.25,
+        "ci95": [
+          67.35,
+          69.17049999999999
+        ],
+        "vs_fp32": {
+          "diff": -0.27000000000000357,
+          "ci95": [
+            -0.61,
+            0.09024999999999864
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 41.56666666666667,
+        "ci95": [
+          41.00658333333334,
+          42.10333333333333
+        ],
+        "vs_fp32": {
+          "diff": -0.6733333333333313,
+          "ci95": [
+            -0.8766666666666667,
+            -0.4633333333333333
+          ]
+        }
+      }
+    }
+  },
+  "APHQ-ViT W4, in the method's forward": {
+    "run": "weights-only",
+    "config": "./configs/4bit/w4a32.py",
+    "w_bit": 4,
+    "a_bit": 32,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 78.21120262145996,
+    "peak_gpu_mib_after_calibration": 4492.20458984375,
+    "block_reconstruction_s": 2453.4525480270386,
+    "peak_gpu_mib_after_block_reconstruction": 4492.20458984375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.5,
+        "ci95": [
+          79.134,
+          79.884
+        ],
+        "vs_fp32": {
+          "diff": -0.35600000000000076,
+          "ci95": [
+            -0.492,
+            -0.22595000000000026
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 68.05,
+        "ci95": [
+          67.15,
+          68.97999999999999
+        ],
+        "vs_fp32": {
+          "diff": -0.47000000000000375,
+          "ci95": [
+            -0.82025,
+            -0.13
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 41.410000000000004,
+        "ci95": [
+          40.843333333333334,
+          41.93675
+        ],
+        "vs_fp32": {
+          "diff": -0.8299999999999974,
+          "ci95": [
+            -1.0400833333333335,
+            -0.6233333333333333
+          ]
+        }
+      }
+    }
+  },
+  "FIMA-Q W3, in the method's forward": {
+    "run": "weights-only",
+    "config": "./configs/3bit/w3a32.py",
+    "w_bit": 3,
+    "a_bit": 32,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 79.41293144226074,
+    "peak_gpu_mib_after_calibration": 4406.365234375,
+    "block_reconstruction_s": 2761.4091193675995,
+    "peak_gpu_mib_after_block_reconstruction": 4406.365234375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 78.654,
+        "ci95": [
+          78.2859,
+          79.03604999999999
+        ],
+        "vs_fp32": {
+          "diff": -1.202000000000003,
+          "ci95": [
+            -1.388,
+            -1.016
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 66.95,
+        "ci95": [
+          66.03975,
+          67.88
+        ],
+        "vs_fp32": {
+          "diff": -1.5700000000000047,
+          "ci95": [
+            -2.06025,
+            -1.0999999999999999
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 39.913333333333334,
+        "ci95": [
+          39.33991666666667,
+          40.433416666666666
+        ],
+        "vs_fp32": {
+          "diff": -2.3266666666666658,
+          "ci95": [
+            -2.59675,
+            -2.04
+          ]
+        }
+      }
+    }
+  },
+  "APHQ-ViT W3, in the method's forward": {
+    "run": "weights-only",
+    "config": "./configs/3bit/w3a32.py",
+    "w_bit": 3,
+    "a_bit": 32,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 78.20176315307617,
+    "peak_gpu_mib_after_calibration": 4492.20458984375,
+    "block_reconstruction_s": 2458.4216458797455,
+    "peak_gpu_mib_after_block_reconstruction": 4492.20458984375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 78.58800000000001,
+        "ci95": [
+          78.22789999999999,
+          78.96805
+        ],
+        "vs_fp32": {
+          "diff": -1.2680000000000025,
+          "ci95": [
+            -1.46005,
+            -1.082
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 66.99000000000001,
+        "ci95": [
+          66.09,
+          67.92
+        ],
+        "vs_fp32": {
+          "diff": -1.529999999999998,
+          "ci95": [
+            -2.0,
+            -1.04
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 40.123333333333335,
+        "ci95": [
+          39.553333333333335,
+          40.66675
+        ],
+        "vs_fp32": {
+          "diff": -2.1166666666666667,
+          "ci95": [
+            -2.3866666666666667,
+            -1.83
+          ]
+        }
+      }
+    }
+  },
+  "FIMA-Q W6, in the method's forward": {
+    "run": "weights-only",
+    "config": "./configs/6bit/w6a32.py",
+    "w_bit": 6,
+    "a_bit": 32,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 80.21908378601074,
+    "peak_gpu_mib_after_calibration": 4406.365234375,
+    "block_reconstruction_s": 2767.8683931827545,
+    "peak_gpu_mib_after_block_reconstruction": 4406.365234375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.80000000000001,
+        "ci95": [
+          79.43195,
+          80.17605
+        ],
+        "vs_fp32": {
+          "diff": -0.056000000000000494,
+          "ci95": [
+            -0.13,
+            0.01804999999999973
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 68.4,
+        "ci95": [
+          67.47,
+          69.34025
+        ],
+        "vs_fp32": {
+          "diff": -0.11999999999999789,
+          "ci95": [
+            -0.3,
+            0.05
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 42.13666666666667,
+        "ci95": [
+          41.569833333333335,
+          42.68
+        ],
+        "vs_fp32": {
+          "diff": -0.10333333333333306,
+          "ci95": [
+            -0.2033333333333333,
+            0.006749999999999545
+          ]
+        }
+      }
+    }
+  },
+  "FIMA-Q W2, in the method's forward": {
+    "run": "weights-only",
+    "config": "./configs/2bit/w2a32.py",
+    "w_bit": 2,
+    "a_bit": 32,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 79.69856524467468,
+    "peak_gpu_mib_after_calibration": 4406.365234375,
+    "block_reconstruction_s": 2767.965884923935,
+    "peak_gpu_mib_after_block_reconstruction": 4406.365234375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 73.11,
+        "ci95": [
+          72.718,
+          73.48804999999999
+        ],
+        "vs_fp32": {
+          "diff": -6.7460000000000075,
+          "ci95": [
+            -7.06,
+            -6.44995
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 60.419999999999995,
+        "ci95": [
+          59.489749999999994,
+          61.36000000000001
+        ],
+        "vs_fp32": {
+          "diff": -8.100000000000007,
+          "ci95": [
+            -8.82025,
+            -7.429750000000002
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 33.53,
+        "ci95": [
+          32.97,
+          34.06341666666667
+        ],
+        "vs_fp32": {
+          "diff": -8.71,
+          "ci95": [
+            -9.10675,
+            -8.306666666666667
+          ]
+        }
+      }
+    }
+  },
+  "RepQ-ViT W4, in the method's forward": {
+    "run": "weights-only",
+    "w_bit": 4,
+    "a_bit": 32,
+    "calib_size": 32,
+    "file": "outputs/artifacts/repq_w4.safetensors",
+    "calibration_s": 199.59258127212524,
+    "peak_gpu_mib_after_calibration": 223.94384765625,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 77.384,
+        "ci95": [
+          77.00200000000001,
+          77.76604999999999
+        ],
+        "vs_fp32": {
+          "diff": -2.4720000000000075,
+          "ci95": [
+            -2.708,
+            -2.2319999999999998
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 65.3,
+        "ci95": [
+          64.32,
+          66.25999999999999
+        ],
+        "vs_fp32": {
+          "diff": -3.2200000000000006,
+          "ci95": [
+            -3.8202499999999997,
+            -2.6297500000000014
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 38.24,
+        "ci95": [
+          37.666666666666664,
+          38.77675
+        ],
+        "vs_fp32": {
+          "diff": -3.9999999999999982,
+          "ci95": [
+            -4.346666666666667,
+            -3.6533333333333333
+          ]
+        }
+      }
+    }
+  },
+  "RepQ-ViT W6, in the method's forward": {
+    "run": "weights-only",
+    "w_bit": 6,
+    "a_bit": 32,
+    "calib_size": 32,
+    "file": "outputs/artifacts/repq_w6.safetensors",
+    "calibration_s": 196.5965769290924,
+    "peak_gpu_mib_after_calibration": 223.94384765625,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.7,
+        "ci95": [
+          79.33595,
+          80.06804999999999
+        ],
+        "vs_fp32": {
+          "diff": -0.15600000000000058,
+          "ci95": [
+            -0.33605,
+            0.024
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 68.06,
+        "ci95": [
+          67.15975,
+          69.01
+        ],
+        "vs_fp32": {
+          "diff": -0.46000000000000485,
+          "ci95": [
+            -0.9199999999999999,
+            -0.019750000000001364
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 41.593333333333334,
+        "ci95": [
+          41.04325,
+          42.15
+        ],
+        "vs_fp32": {
+          "diff": -0.6466666666666676,
+          "ci95": [
+            -0.9133333333333333,
+            -0.36666666666666664
+          ]
+        }
+      }
+    }
+  },
+  "PTQ4ViT W8, in the method's forward": {
+    "run": "weights-only",
+    "w_bit": 8,
+    "a_bit": 32,
+    "conv_a": 32,
+    "calib_size": 32,
+    "file": "outputs/artifacts/ptq4vit_w8.safetensors",
+    "calibration_s": 99.00858426094055,
+    "peak_gpu_mib_after_calibration": 4287.5078125,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.82000000000001,
+        "ci95": [
+          79.45400000000001,
+          80.19404999999999
+        ],
+        "vs_fp32": {
+          "diff": -0.036000000000002697,
+          "ci95": [
+            -0.11800000000000001,
+            0.044000000000000004
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 68.55,
+        "ci95": [
+          67.64,
+          69.48
+        ],
+        "vs_fp32": {
+          "diff": 0.029999999999996696,
+          "ci95": [
+            -0.19,
+            0.25
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 42.24,
+        "ci95": [
+          41.64658333333333,
+          42.78008333333334
+        ],
+        "vs_fp32": {
+          "diff": 0.0,
+          "ci95": [
+            -0.11675,
+            0.12008333333333288
+          ]
+        }
+      }
+    }
+  },
+  "APHQ-ViT W4 MR, in the method's forward": {
+    "run": "weights-only",
+    "config": "./configs/4bit/w4a32.py",
+    "w_bit": 4,
+    "a_bit": 32,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": true,
+    "calibration_s": 75.65382409095764,
+    "peak_gpu_mib_after_calibration": 3913.79443359375,
+    "block_reconstruction_s": 4982.3500962257385,
+    "peak_gpu_mib_after_block_reconstruction": 3913.79443359375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.164,
+        "ci95": [
+          78.78795000000001,
+          79.54605
+        ],
+        "vs_fp32": {
+          "diff": -0.6920000000000037,
+          "ci95": [
+            -0.868,
+            -0.524
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 67.71000000000001,
+        "ci95": [
+          66.81,
+          68.64
+        ],
+        "vs_fp32": {
+          "diff": -0.8099999999999996,
+          "ci95": [
+            -1.24,
+            -0.38
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 41.163333333333334,
+        "ci95": [
+          40.58991666666667,
+          41.67666666666667
+        ],
+        "vs_fp32": {
+          "diff": -1.0766666666666647,
+          "ci95": [
+            -1.3266666666666667,
+            -0.8200000000000001
+          ]
+        }
+      }
+    }
+  },
+  "PTQ4ViT W6, in the method's forward": {
+    "run": "weights-only",
+    "w_bit": 6,
+    "a_bit": 32,
+    "conv_a": 32,
+    "calib_size": 32,
+    "file": "outputs/artifacts/ptq4vit_w6.safetensors",
+    "calibration_s": 113.51882195472717,
+    "peak_gpu_mib_after_calibration": 4287.5078125,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 79.66,
+        "ci95": [
+          79.2879,
+          80.032
+        ],
+        "vs_fp32": {
+          "diff": -0.19600000000000728,
+          "ci95": [
+            -0.33605,
+            -0.055999999999999994
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 68.08999999999999,
+        "ci95": [
+          67.19975000000001,
+          69.01025000000001
+        ],
+        "vs_fp32": {
+          "diff": -0.43000000000000815,
+          "ci95": [
+            -0.77,
+            -0.06975000000000135
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 42.07666666666667,
+        "ci95": [
+          41.49666666666666,
+          42.62675
+        ],
+        "vs_fp32": {
+          "diff": -0.163333333333332,
+          "ci95": [
+            -0.36341666666666667,
+            0.043416666666666215
+          ]
+        }
+      }
+    }
+  },
+  "APHQ-ViT W3 MR, in the method's forward": {
+    "run": "weights-only",
+    "config": "./configs/3bit/w3a32.py",
+    "w_bit": 3,
+    "a_bit": 32,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": true,
+    "calibration_s": 132.72930431365967,
+    "peak_gpu_mib_after_calibration": 3913.79443359375,
+    "block_reconstruction_s": 2436.896120786667,
+    "peak_gpu_mib_after_block_reconstruction": 3913.79443359375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 77.968,
+        "ci95": [
+          77.582,
+          78.35810000000001
+        ],
+        "vs_fp32": {
+          "diff": -1.8880000000000008,
+          "ci95": [
+            -2.09605,
+            -1.6740000000000002
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 66.34,
+        "ci95": [
+          65.41975,
+          67.31
+        ],
+        "vs_fp32": {
+          "diff": -2.180000000000004,
+          "ci95": [
+            -2.7,
+            -1.68
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 38.97,
+        "ci95": [
+          38.383250000000004,
+          39.493500000000004
+        ],
+        "vs_fp32": {
+          "diff": -3.2700000000000005,
+          "ci95": [
+            -3.576666666666667,
+            -2.9533333333333336
+          ]
+        }
+      }
+    }
+  }
+}

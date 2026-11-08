@@ -148,38 +148,53 @@ ROWS_FORMAT = "deitc-pack-rows-v1"
 
 
 def dequantize_rows(entry, shape):
+    """A method whose grid covers groups of rows stores one scale and zero point per group, repeated here."""
     q = entry["q"].float().reshape(shape[0], -1)
-    return ((q - entry["zero"].float()) * entry["scale"].float()).reshape(shape)
+    scale, zero = entry["scale"].float(), entry["zero"].float()
+    if scale.shape[0] != shape[0]:
+        scale = scale.repeat_interleave(shape[0] // scale.shape[0], dim=0)
+        zero = zero.repeat_interleave(shape[0] // zero.shape[0], dim=0)
+    return ((q - zero) * scale).reshape(shape)
 
 
 def save_packed_rows(qsd, path, bits, method=""):
-    if not 2 <= bits <= 8:
+    """`bits` is one width for every quantized layer, or {layer: width} for a model that mixes widths."""
+    widths = {k: bits[k] if isinstance(bits, dict) else bits for k, v in qsd.items() if isinstance(v, dict)}
+    if not all(2 <= b <= 8 for b in widths.values()):
         raise NotImplementedError("packing covers 2 to 8 bits")
     tensors, shapes = {}, {}
     for k, v in qsd.items():
         if isinstance(v, dict):
             shapes[k] = list(v["q"].shape)
-            tensors[k + ".q"] = v["q"].contiguous() if bits == 8 else pack_codes(v["q"], bits)
+            tensors[k + ".q"] = v["q"].contiguous() if widths[k] == 8 else pack_codes(v["q"], widths[k])
             tensors[k + ".scale"] = v["scale"].float().contiguous()
             tensors[k + ".zero"] = v["zero"].to(torch.int16).contiguous()
         else:
             tensors[k] = v.contiguous()
-    meta = {"format": ROWS_FORMAT, "bits": str(bits), "method": method, "shapes": json.dumps(shapes)}
+    meta = {"format": ROWS_FORMAT, "bits": json.dumps(bits) if isinstance(bits, dict) else str(bits),
+            "method": method, "shapes": json.dumps(shapes)}
     save_file(tensors, str(path), metadata=meta)
     return Path(path).stat().st_size
 
 
-def load_packed_rows(path):
-    """Read a per-row packed file back into an FP32 state_dict (weights dequantized)."""
+def load_entries(path):
+    """A per-row packed file as it is stored: ({layer: {q, scale, zero}}, {other tensors}, {layer: width})."""
     with safe_open(str(path), framework="pt") as f:
         meta = f.metadata()
-        bits, shapes = int(meta["bits"]), json.loads(meta["shapes"])
+        bits, shapes = json.loads(meta["bits"]), json.loads(meta["shapes"])
         raw = {k: f.get_tensor(k) for k in f.keys()}
-    sd = {}
+    widths = {k: bits[k] if isinstance(bits, dict) else bits for k in shapes}
+    entries = {}
     for k, shape in shapes.items():
         q = raw.pop(k + ".q")
-        entry = {"q": q.reshape(shape) if bits == 8 else unpack_codes(q, shape, bits),
-                 "scale": raw.pop(k + ".scale"), "zero": raw.pop(k + ".zero")}
-        sd[k] = dequantize_rows(entry, shape)
+        entries[k] = {"q": q.reshape(shape) if widths[k] == 8 else unpack_codes(q, shape, widths[k]),
+                      "scale": raw.pop(k + ".scale"), "zero": raw.pop(k + ".zero")}
+    return entries, raw, widths
+
+
+def load_packed_rows(path):
+    """Read a per-row packed file back into an FP32 state_dict (weights dequantized)."""
+    entries, raw, _ = load_entries(path)
+    sd = {k: dequantize_rows(e, e["q"].shape) for k, e in entries.items()}
     sd.update({k: v.float() for k, v in raw.items()})
     return sd

@@ -1,0 +1,1157 @@
+{
+  "gpu": "NVIDIA GeForce RTX 4070",
+  "torch": "2.11.0+cu128",
+  "same_layer_sizes": {
+    "corp-both_s10": [
+      "corp-both_s10"
+    ],
+    "corp-both_s20": [
+      "corp-both_s20"
+    ],
+    "corp-both_s30": [
+      "corp-both_s30"
+    ],
+    "corp-both_s40": [
+      "corp-both_s40"
+    ],
+    "corp-both_s50": [
+      "corp-both_s50"
+    ],
+    "corp-both_s60": [
+      "corp-both_s60"
+    ],
+    "corp-both_s70": [
+      "corp-both_s70"
+    ],
+    "corp-mlp_s10": [
+      "corp-mlp_s10",
+      "grail-mag-l2_s10",
+      "grail-wanda_s10",
+      "grail-mag-l2-nocomp_s10",
+      "grail-mag-l2_s10_n4000",
+      "grail-wanda_s10_n4000"
+    ],
+    "corp-mlp_s20": [
+      "corp-mlp_s20"
+    ],
+    "corp-mlp_s30": [
+      "corp-mlp_s30",
+      "grail-mag-l2_s30",
+      "grail-wanda_s30",
+      "grail-mag-l2-nocomp_s30",
+      "grail-mag-l2_s30_n4000",
+      "grail-wanda_s30_n4000"
+    ],
+    "corp-mlp_s40": [
+      "corp-mlp_s40"
+    ],
+    "corp-mlp_s50": [
+      "corp-mlp_s50",
+      "grail-mag-l2_s50",
+      "grail-wanda_s50",
+      "grail-mag-l2-nocomp_s50",
+      "grail-mag-l2_s50_n4000",
+      "grail-wanda_s50_n4000"
+    ],
+    "corp-mlp_s60": [
+      "corp-mlp_s60",
+      "grail-mag-l2_s60",
+      "grail-wanda_s60",
+      "grail-mag-l2-nocomp_s60",
+      "grail-mag-l2_s60_n4000",
+      "grail-wanda_s60_n4000"
+    ],
+    "corp-mlp_s70": [
+      "corp-mlp_s70"
+    ],
+    "corp-attn_s10": [
+      "corp-attn_s10"
+    ],
+    "corp-attn_s20": [
+      "corp-attn_s20"
+    ],
+    "corp-attn_s30": [
+      "corp-attn_s30"
+    ],
+    "corp-attn_s40": [
+      "corp-attn_s40"
+    ],
+    "corp-attn_s50": [
+      "corp-attn_s50"
+    ],
+    "corp-attn_s60": [
+      "corp-attn_s60"
+    ],
+    "corp-attn_s70": [
+      "corp-attn_s70"
+    ],
+    "vbp_s10": [
+      "vbp_s10"
+    ],
+    "vbp_s20": [
+      "vbp_s20"
+    ],
+    "grail-mag-l2_s20": [
+      "grail-mag-l2_s20",
+      "grail-wanda_s20",
+      "grail-mag-l2-nocomp_s20",
+      "grail-mag-l2_s20_n4000",
+      "grail-wanda_s20_n4000"
+    ],
+    "vbp_s30": [
+      "vbp_s30"
+    ],
+    "vbp_s40": [
+      "vbp_s40"
+    ],
+    "grail-mag-l2_s40": [
+      "grail-mag-l2_s40",
+      "grail-wanda_s40",
+      "grail-mag-l2-nocomp_s40",
+      "grail-mag-l2_s40_n4000",
+      "grail-wanda_s40_n4000"
+    ],
+    "vbp_s50": [
+      "vbp_s50"
+    ],
+    "vbp_s60": [
+      "vbp_s60"
+    ],
+    "vbp_s70": [
+      "vbp_s70"
+    ],
+    "grail-mag-l2_s70": [
+      "grail-mag-l2_s70",
+      "grail-wanda_s70",
+      "grail-mag-l2-nocomp_s70",
+      "grail-mag-l2_s70_n4000",
+      "grail-wanda_s70_n4000"
+    ]
+  },
+  "results": {
+    "DeiT-S FP16 | eager | batch 1": {
+      "median_ms": 1.964080035686493,
+      "p25_ms": 1.9538079798221588,
+      "p75_ms": 2.01336008310318,
+      "images_per_s": 509.1442211266488,
+      "peak_mem_mib": 57.17333984375,
+      "model_mib": 44.705078125
+    },
+    "DeiT-S FP16 | eager | batch 256": {
+      "median_ms": 97.11872100830078,
+      "p25_ms": 95.21982383728027,
+      "p75_ms": 98.33574295043945,
+      "images_per_s": 2635.9490460970915,
+      "peak_mem_mib": 909.2890625,
+      "model_mib": 44.705078125
+    },
+    "DeiT-S FP16 | compiled | batch 1": {
+      "median_ms": 1.1201120018959045,
+      "p25_ms": 1.1089919805526733,
+      "p75_ms": 1.1415039896965027,
+      "images_per_s": 892.7678645594345,
+      "peak_mem_mib": 56.017578125,
+      "model_mib": 44.705078125
+    },
+    "DeiT-S FP16 | compiled | batch 256": {
+      "median_ms": 88.11873626708984,
+      "p25_ms": 86.0187873840332,
+      "p75_ms": 89.12614440917969,
+      "images_per_s": 2905.171032231537,
+      "peak_mem_mib": 544.2158203125,
+      "model_mib": 44.705078125
+    },
+    "Pruned corp-both_s10 | eager | batch 1": {
+      "median_ms": 2.0103039741516113,
+      "p25_ms": 1.9992720186710358,
+      "p75_ms": 2.035199999809265,
+      "images_per_s": 497.4372099234496,
+      "peak_mem_mib": 52.0810546875,
+      "model_mib": 39.6396484375
+    },
+    "Pruned corp-both_s10 | eager | batch 256": {
+      "median_ms": 96.63891220092773,
+      "p25_ms": 94.4576244354248,
+      "p75_ms": 97.72994995117188,
+      "images_per_s": 2649.036440597915,
+      "peak_mem_mib": 897.2978515625,
+      "model_mib": 39.6396484375
+    },
+    "Pruned corp-both_s10 | compiled | batch 1": {
+      "median_ms": 1.2754240036010742,
+      "p25_ms": 1.2695679664611816,
+      "p75_ms": 1.2860639989376068,
+      "images_per_s": 784.052987223517,
+      "peak_mem_mib": 50.92822265625,
+      "model_mib": 39.6396484375
+    },
+    "Pruned corp-both_s10 | compiled | batch 256": {
+      "median_ms": 86.70060729980469,
+      "p25_ms": 84.6689281463623,
+      "p75_ms": 87.47235870361328,
+      "images_per_s": 2952.6898135184883,
+      "peak_mem_mib": 550.4228515625,
+      "model_mib": 39.6396484375
+    },
+    "Pruned corp-both_s20 | eager | batch 1": {
+      "median_ms": 2.002784013748169,
+      "p25_ms": 1.990399956703186,
+      "p75_ms": 2.0357040762901306,
+      "images_per_s": 499.3049640577671,
+      "peak_mem_mib": 47.71630859375,
+      "model_mib": 35.306640625
+    },
+    "Pruned corp-both_s20 | eager | batch 256": {
+      "median_ms": 99.27148818969727,
+      "p25_ms": 97.42505645751953,
+      "p75_ms": 100.5040225982666,
+      "images_per_s": 2578.7867661539553,
+      "peak_mem_mib": 885.078125,
+      "model_mib": 35.306640625
+    },
+    "Pruned corp-both_s20 | compiled | batch 1": {
+      "median_ms": 1.2939040064811707,
+      "p25_ms": 1.2805839776992798,
+      "p75_ms": 1.3606560230255127,
+      "images_per_s": 772.854860168139,
+      "peak_mem_mib": 46.560546875,
+      "model_mib": 35.306640625
+    },
+    "Pruned corp-both_s20 | compiled | batch 256": {
+      "median_ms": 87.43374252319336,
+      "p25_ms": 85.45701599121094,
+      "p75_ms": 88.35857772827148,
+      "images_per_s": 2927.931398248124,
+      "peak_mem_mib": 559.037109375,
+      "model_mib": 35.306640625
+    },
+    "Pruned corp-both_s30 | eager | batch 1": {
+      "median_ms": 2.0291839838027954,
+      "p25_ms": 2.0124159455299377,
+      "p75_ms": 2.0630560517311096,
+      "images_per_s": 492.80893599699544,
+      "peak_mem_mib": 44.349609375,
+      "model_mib": 31.966796875
+    },
+    "Pruned corp-both_s30 | eager | batch 256": {
+      "median_ms": 93.59161758422852,
+      "p25_ms": 91.64948654174805,
+      "p75_ms": 94.58361053466797,
+      "images_per_s": 2735.2876957128215,
+      "peak_mem_mib": 875.22265625,
+      "model_mib": 31.966796875
+    },
+    "Pruned corp-both_s30 | compiled | batch 1": {
+      "median_ms": 1.2461119890213013,
+      "p25_ms": 1.2382720112800598,
+      "p75_ms": 1.2806880176067352,
+      "images_per_s": 802.4960908893926,
+      "peak_mem_mib": 43.19384765625,
+      "model_mib": 31.966796875
+    },
+    "Pruned corp-both_s30 | compiled | batch 256": {
+      "median_ms": 82.54006576538086,
+      "p25_ms": 80.82723236083984,
+      "p75_ms": 83.3409423828125,
+      "images_per_s": 3101.5240613894944,
+      "peak_mem_mib": 550.37890625,
+      "model_mib": 31.966796875
+    },
+    "Pruned corp-both_s40 | eager | batch 1": {
+      "median_ms": 1.9790720343589783,
+      "p25_ms": 1.9596320390701294,
+      "p75_ms": 2.038744032382965,
+      "images_per_s": 505.2873178130174,
+      "peak_mem_mib": 40.87841796875,
+      "model_mib": 28.52734375
+    },
+    "Pruned corp-both_s40 | eager | batch 256": {
+      "median_ms": 80.31711959838867,
+      "p25_ms": 78.76223754882812,
+      "p75_ms": 81.15583419799805,
+      "images_per_s": 3187.3652999520154,
+      "peak_mem_mib": 863.703125,
+      "model_mib": 28.52734375
+    },
+    "Pruned corp-both_s40 | compiled | batch 1": {
+      "median_ms": 1.1258240342140198,
+      "p25_ms": 1.1170880198478699,
+      "p75_ms": 1.1518720388412476,
+      "images_per_s": 888.2382766842758,
+      "peak_mem_mib": 39.72265625,
+      "model_mib": 28.52734375
+    },
+    "Pruned corp-both_s40 | compiled | batch 256": {
+      "median_ms": 76.10513687133789,
+      "p25_ms": 74.56025314331055,
+      "p75_ms": 77.19995880126953,
+      "images_per_s": 3363.7676840761674,
+      "peak_mem_mib": 528.0849609375,
+      "model_mib": 28.52734375
+    },
+    "Pruned corp-both_s50 | eager | batch 1": {
+      "median_ms": 1.9685919880867004,
+      "p25_ms": 1.9561279714107513,
+      "p75_ms": 1.9957040548324585,
+      "images_per_s": 507.97727820273855,
+      "peak_mem_mib": 37.49951171875,
+      "model_mib": 25.17578125
+    },
+    "Pruned corp-both_s50 | eager | batch 256": {
+      "median_ms": 69.22934341430664,
+      "p25_ms": 68.04196166992188,
+      "p75_ms": 69.93163108825684,
+      "images_per_s": 3697.8539355480316,
+      "peak_mem_mib": 853.55078125,
+      "model_mib": 25.17578125
+    },
+    "Pruned corp-both_s50 | compiled | batch 1": {
+      "median_ms": 1.0905439853668213,
+      "p25_ms": 1.0844160318374634,
+      "p75_ms": 1.1019759774208069,
+      "images_per_s": 916.9735594512812,
+      "peak_mem_mib": 36.34375,
+      "model_mib": 25.17578125
+    },
+    "Pruned corp-both_s50 | compiled | batch 256": {
+      "median_ms": 63.610239028930664,
+      "p25_ms": 62.2614631652832,
+      "p75_ms": 64.5717601776123,
+      "images_per_s": 4024.509322839807,
+      "peak_mem_mib": 517.92578125,
+      "model_mib": 25.17578125
+    },
+    "Pruned corp-both_s60 | eager | batch 1": {
+      "median_ms": 2.006351947784424,
+      "p25_ms": 1.9929600358009338,
+      "p75_ms": 2.0549999475479126,
+      "images_per_s": 498.417040491964,
+      "peak_mem_mib": 34.1328125,
+      "model_mib": 21.8359375
+    },
+    "Pruned corp-both_s60 | eager | batch 256": {
+      "median_ms": 67.34566497802734,
+      "p25_ms": 65.86883354187012,
+      "p75_ms": 68.04198455810547,
+      "images_per_s": 3801.2840185559726,
+      "peak_mem_mib": 843.16015625,
+      "model_mib": 21.8359375
+    },
+    "Pruned corp-both_s60 | compiled | batch 1": {
+      "median_ms": 1.1074559688568115,
+      "p25_ms": 1.1018240451812744,
+      "p75_ms": 1.1169280409812927,
+      "images_per_s": 902.9704368583298,
+      "peak_mem_mib": 32.97705078125,
+      "model_mib": 21.8359375
+    },
+    "Pruned corp-both_s60 | compiled | batch 256": {
+      "median_ms": 63.92215919494629,
+      "p25_ms": 62.80739974975586,
+      "p75_ms": 64.77212142944336,
+      "images_per_s": 4004.8709747001076,
+      "peak_mem_mib": 527.68017578125,
+      "model_mib": 21.8359375
+    },
+    "Pruned corp-both_s70 | eager | batch 1": {
+      "median_ms": 2.00190407037735,
+      "p25_ms": 1.9704799950122833,
+      "p75_ms": 2.0699679255485535,
+      "images_per_s": 499.5244351601246,
+      "peak_mem_mib": 30.67333984375,
+      "model_mib": 18.408203125
+    },
+    "Pruned corp-both_s70 | eager | batch 256": {
+      "median_ms": 65.18278503417969,
+      "p25_ms": 63.891191482543945,
+      "p75_ms": 65.67902946472168,
+      "images_per_s": 3927.4173367364115,
+      "peak_mem_mib": 831.65234375,
+      "model_mib": 18.408203125
+    },
+    "Pruned corp-both_s70 | compiled | batch 1": {
+      "median_ms": 1.1048639416694641,
+      "p25_ms": 1.094215989112854,
+      "p75_ms": 1.1507279574871063,
+      "images_per_s": 905.0888188902126,
+      "peak_mem_mib": 29.517578125,
+      "model_mib": 18.408203125
+    },
+    "Pruned corp-both_s70 | compiled | batch 256": {
+      "median_ms": 58.02033615112305,
+      "p25_ms": 56.8153600692749,
+      "p75_ms": 58.72485637664795,
+      "images_per_s": 4412.246067192854,
+      "peak_mem_mib": 499.7373046875,
+      "model_mib": 18.408203125
+    },
+    "Pruned corp-mlp_s10 | eager | batch 1": {
+      "median_ms": 2.012160062789917,
+      "p25_ms": 1.9966000318527222,
+      "p75_ms": 2.0517919659614563,
+      "images_per_s": 496.978355992948,
+      "peak_mem_mib": 53.03759765625,
+      "model_mib": 40.5693359375
+    },
+    "Pruned corp-mlp_s10 | eager | batch 256": {
+      "median_ms": 97.88247680664062,
+      "p25_ms": 95.71353721618652,
+      "p75_ms": 98.79551696777344,
+      "images_per_s": 2615.3813057439124,
+      "peak_mem_mib": 905.1533203125,
+      "model_mib": 40.5693359375
+    },
+    "Pruned corp-mlp_s10 | compiled | batch 1": {
+      "median_ms": 1.2368800044059753,
+      "p25_ms": 1.2303840219974518,
+      "p75_ms": 1.2468959987163544,
+      "images_per_s": 808.4858647870701,
+      "peak_mem_mib": 51.8818359375,
+      "model_mib": 40.5693359375
+    },
+    "Pruned corp-mlp_s10 | compiled | batch 256": {
+      "median_ms": 86.93814468383789,
+      "p25_ms": 84.74711227416992,
+      "p75_ms": 87.64057731628418,
+      "images_per_s": 2944.6223050995395,
+      "peak_mem_mib": 552.68603515625,
+      "model_mib": 40.5693359375
+    },
+    "Pruned corp-mlp_s20 | eager | batch 1": {
+      "median_ms": 2.041279911994934,
+      "p25_ms": 2.027232050895691,
+      "p75_ms": 2.0882959365844727,
+      "images_per_s": 489.8887184083952,
+      "peak_mem_mib": 49.15185546875,
+      "model_mib": 36.68359375
+    },
+    "Pruned corp-mlp_s20 | eager | batch 256": {
+      "median_ms": 102.31449508666992,
+      "p25_ms": 100.05734634399414,
+      "p75_ms": 103.07967758178711,
+      "images_per_s": 2502.0892668545557,
+      "peak_mem_mib": 901.267578125,
+      "model_mib": 36.68359375
+    },
+    "Pruned corp-mlp_s20 | compiled | batch 1": {
+      "median_ms": 1.2446720004081726,
+      "p25_ms": 1.2326639592647552,
+      "p75_ms": 1.2956479787826538,
+      "images_per_s": 803.4245163963391,
+      "peak_mem_mib": 47.99609375,
+      "model_mib": 36.68359375
+    },
+    "Pruned corp-mlp_s20 | compiled | batch 256": {
+      "median_ms": 89.45865631103516,
+      "p25_ms": 87.47110366821289,
+      "p75_ms": 89.97940635681152,
+      "images_per_s": 2861.6571113020527,
+      "peak_mem_mib": 555.056640625,
+      "model_mib": 36.68359375
+    },
+    "Pruned corp-mlp_s30 | eager | batch 1": {
+      "median_ms": 2.0382080078125,
+      "p25_ms": 2.020439922809601,
+      "p75_ms": 2.302135944366455,
+      "images_per_s": 490.62705875306943,
+      "peak_mem_mib": 46.44482421875,
+      "model_mib": 33.9765625
+    },
+    "Pruned corp-mlp_s30 | eager | batch 256": {
+      "median_ms": 98.0130386352539,
+      "p25_ms": 95.83405876159668,
+      "p75_ms": 98.69311904907227,
+      "images_per_s": 2611.8973920671856,
+      "peak_mem_mib": 899.1640625,
+      "model_mib": 33.9765625
+    },
+    "Pruned corp-mlp_s30 | compiled | batch 1": {
+      "median_ms": 1.235967993736267,
+      "p25_ms": 1.2290480434894562,
+      "p75_ms": 1.2502079904079437,
+      "images_per_s": 809.0824398915476,
+      "peak_mem_mib": 45.2890625,
+      "model_mib": 33.9765625
+    },
+    "Pruned corp-mlp_s30 | compiled | batch 256": {
+      "median_ms": 85.48863983154297,
+      "p25_ms": 83.54813575744629,
+      "p75_ms": 86.20227432250977,
+      "images_per_s": 2994.549925047971,
+      "peak_mem_mib": 549.6923828125,
+      "model_mib": 33.9765625
+    },
+    "Pruned corp-mlp_s40 | eager | batch 1": {
+      "median_ms": 2.0183041095733643,
+      "p25_ms": 2.0017919540405273,
+      "p75_ms": 2.075839936733246,
+      "images_per_s": 495.46547284758947,
+      "peak_mem_mib": 43.74365234375,
+      "model_mib": 31.275390625
+    },
+    "Pruned corp-mlp_s40 | eager | batch 256": {
+      "median_ms": 87.77740859985352,
+      "p25_ms": 85.7227725982666,
+      "p75_ms": 88.65796089172363,
+      "images_per_s": 2916.467962354806,
+      "peak_mem_mib": 896.462890625,
+      "model_mib": 31.275390625
+    },
+    "Pruned corp-mlp_s40 | compiled | batch 1": {
+      "median_ms": 1.1275840401649475,
+      "p25_ms": 1.1207680404186249,
+      "p75_ms": 1.1429519951343536,
+      "images_per_s": 886.8518570498001,
+      "peak_mem_mib": 42.587890625,
+      "model_mib": 31.275390625
+    },
+    "Pruned corp-mlp_s40 | compiled | batch 256": {
+      "median_ms": 81.14409637451172,
+      "p25_ms": 79.0149917602539,
+      "p75_ms": 81.88793563842773,
+      "images_per_s": 3154.881395418589,
+      "peak_mem_mib": 545.46484375,
+      "model_mib": 31.275390625
+    },
+    "Pruned corp-mlp_s50 | eager | batch 1": {
+      "median_ms": 1.9883840084075928,
+      "p25_ms": 1.968127965927124,
+      "p75_ms": 2.03930401802063,
+      "images_per_s": 502.9209628379857,
+      "peak_mem_mib": 41.03076171875,
+      "model_mib": 28.5625
+    },
+    "Pruned corp-mlp_s50 | eager | batch 256": {
+      "median_ms": 81.26262664794922,
+      "p25_ms": 79.1782398223877,
+      "p75_ms": 81.93990516662598,
+      "images_per_s": 3150.27966188022,
+      "peak_mem_mib": 893.75,
+      "model_mib": 28.5625
+    },
+    "Pruned corp-mlp_s50 | compiled | batch 1": {
+      "median_ms": 1.0992159843444824,
+      "p25_ms": 1.090559959411621,
+      "p75_ms": 1.1079760193824768,
+      "images_per_s": 909.7393180616366,
+      "peak_mem_mib": 39.875,
+      "model_mib": 28.5625
+    },
+    "Pruned corp-mlp_s50 | compiled | batch 256": {
+      "median_ms": 71.31900787353516,
+      "p25_ms": 69.66040802001953,
+      "p75_ms": 71.8985366821289,
+      "images_per_s": 3589.5059063909907,
+      "peak_mem_mib": 531.0625,
+      "model_mib": 28.5625
+    },
+    "Pruned corp-mlp_s60 | eager | batch 1": {
+      "median_ms": 2.0079840421676636,
+      "p25_ms": 1.9926080107688904,
+      "p75_ms": 2.066264033317566,
+      "images_per_s": 498.0119258918401,
+      "peak_mem_mib": 38.32373046875,
+      "model_mib": 25.85546875
+    },
+    "Pruned corp-mlp_s60 | eager | batch 256": {
+      "median_ms": 79.93747329711914,
+      "p25_ms": 78.35775756835938,
+      "p75_ms": 80.68332290649414,
+      "images_per_s": 3202.5030244385516,
+      "peak_mem_mib": 891.04296875,
+      "model_mib": 25.85546875
+    },
+    "Pruned corp-mlp_s60 | compiled | batch 1": {
+      "median_ms": 1.1192320585250854,
+      "p25_ms": 1.1132560074329376,
+      "p75_ms": 1.12921604514122,
+      "images_per_s": 893.4697611483641,
+      "peak_mem_mib": 37.16796875,
+      "model_mib": 25.85546875
+    },
+    "Pruned corp-mlp_s60 | compiled | batch 256": {
+      "median_ms": 72.12843322753906,
+      "p25_ms": 70.47126197814941,
+      "p75_ms": 72.79411315917969,
+      "images_per_s": 3549.2244673111477,
+      "peak_mem_mib": 537.73486328125,
+      "model_mib": 25.85546875
+    },
+    "Pruned corp-mlp_s70 | eager | batch 1": {
+      "median_ms": 1.9857119917869568,
+      "p25_ms": 1.9681519865989685,
+      "p75_ms": 2.0381760001182556,
+      "images_per_s": 503.5977040658815,
+      "peak_mem_mib": 35.63427734375,
+      "model_mib": 23.166015625
+    },
+    "Pruned corp-mlp_s70 | eager | batch 256": {
+      "median_ms": 78.88947296142578,
+      "p25_ms": 77.02578926086426,
+      "p75_ms": 79.76115226745605,
+      "images_per_s": 3245.0463970671362,
+      "peak_mem_mib": 888.353515625,
+      "model_mib": 23.166015625
+    },
+    "Pruned corp-mlp_s70 | compiled | batch 1": {
+      "median_ms": 1.0894559621810913,
+      "p25_ms": 1.0805760025978088,
+      "p75_ms": 1.1047919690608978,
+      "images_per_s": 917.8893270711003,
+      "peak_mem_mib": 34.478515625,
+      "model_mib": 23.166015625
+    },
+    "Pruned corp-mlp_s70 | compiled | batch 256": {
+      "median_ms": 67.85894393920898,
+      "p25_ms": 66.37820625305176,
+      "p75_ms": 68.42825317382812,
+      "images_per_s": 3772.531447429185,
+      "peak_mem_mib": 533.083984375,
+      "model_mib": 23.166015625
+    },
+    "Pruned corp-attn_s10 | eager | batch 1": {
+      "median_ms": 2.0265119075775146,
+      "p25_ms": 2.0039680004119873,
+      "p75_ms": 2.058568000793457,
+      "images_per_s": 493.458733827721,
+      "peak_mem_mib": 54.427734375,
+      "model_mib": 41.982421875
+    },
+    "Pruned corp-attn_s10 | eager | batch 256": {
+      "median_ms": 96.55590438842773,
+      "p25_ms": 94.69837760925293,
+      "p75_ms": 97.28077125549316,
+      "images_per_s": 2651.3137816011354,
+      "peak_mem_mib": 901.294921875,
+      "model_mib": 41.982421875
+    },
+    "Pruned corp-attn_s10 | compiled | batch 1": {
+      "median_ms": 1.2273120284080505,
+      "p25_ms": 1.2195920050144196,
+      "p75_ms": 1.2443999946117401,
+      "images_per_s": 814.7887227155286,
+      "peak_mem_mib": 53.27099609375,
+      "model_mib": 41.982421875
+    },
+    "Pruned corp-attn_s10 | compiled | batch 256": {
+      "median_ms": 87.72710418701172,
+      "p25_ms": 85.94595146179199,
+      "p75_ms": 88.86297416687012,
+      "images_per_s": 2918.1403213113426,
+      "peak_mem_mib": 540.982421875,
+      "model_mib": 41.982421875
+    },
+    "Pruned corp-attn_s20 | eager | batch 1": {
+      "median_ms": 2.0190240144729614,
+      "p25_ms": 2.00627201795578,
+      "p75_ms": 2.0886799693107605,
+      "images_per_s": 495.2888092621505,
+      "peak_mem_mib": 53.68359375,
+      "model_mib": 41.23828125
+    },
+    "Pruned corp-attn_s20 | eager | batch 256": {
+      "median_ms": 95.69485092163086,
+      "p25_ms": 93.49319076538086,
+      "p75_ms": 96.29358673095703,
+      "images_per_s": 2675.170059146137,
+      "peak_mem_mib": 900.55078125,
+      "model_mib": 41.23828125
+    },
+    "Pruned corp-attn_s20 | compiled | batch 1": {
+      "median_ms": 1.1629120111465454,
+      "p25_ms": 1.1524239480495453,
+      "p75_ms": 1.1824639737606049,
+      "images_per_s": 859.9102859158482,
+      "peak_mem_mib": 52.4921875,
+      "model_mib": 41.23828125
+    },
+    "Pruned corp-attn_s20 | compiled | batch 256": {
+      "median_ms": 86.45750427246094,
+      "p25_ms": 84.52908706665039,
+      "p75_ms": 87.15424919128418,
+      "images_per_s": 2960.9922487843887,
+      "peak_mem_mib": 547.3583984375,
+      "model_mib": 41.23828125
+    },
+    "Pruned corp-attn_s30 | eager | batch 1": {
+      "median_ms": 2.046223998069763,
+      "p25_ms": 2.0398720502853394,
+      "p75_ms": 2.0651519894599915,
+      "images_per_s": 488.7050493706048,
+      "peak_mem_mib": 53.01171875,
+      "model_mib": 40.56640625
+    },
+    "Pruned corp-attn_s30 | eager | batch 256": {
+      "median_ms": 93.17731475830078,
+      "p25_ms": 91.33187103271484,
+      "p75_ms": 94.04241561889648,
+      "images_per_s": 2747.449855837298,
+      "peak_mem_mib": 899.87890625,
+      "model_mib": 40.56640625
+    },
+    "Pruned corp-attn_s30 | compiled | batch 1": {
+      "median_ms": 1.155023992061615,
+      "p25_ms": 1.147959977388382,
+      "p75_ms": 1.1663280427455902,
+      "images_per_s": 865.7828814578033,
+      "peak_mem_mib": 51.79345703125,
+      "model_mib": 40.56640625
+    },
+    "Pruned corp-attn_s30 | compiled | batch 256": {
+      "median_ms": 84.91519927978516,
+      "p25_ms": 83.0257625579834,
+      "p75_ms": 85.6184310913086,
+      "images_per_s": 3014.772410254982,
+      "peak_mem_mib": 480.1552734375,
+      "model_mib": 40.56640625
+    },
+    "Pruned corp-attn_s40 | eager | batch 1": {
+      "median_ms": 2.009440064430237,
+      "p25_ms": 1.9958000481128693,
+      "p75_ms": 2.0688639283180237,
+      "images_per_s": 497.6510709134006,
+      "peak_mem_mib": 52.40234375,
+      "model_mib": 39.76171875
+    },
+    "Pruned corp-attn_s40 | eager | batch 256": {
+      "median_ms": 89.65252685546875,
+      "p25_ms": 87.81130981445312,
+      "p75_ms": 90.57442665100098,
+      "images_per_s": 2855.4688749900433,
+      "peak_mem_mib": 899.26953125,
+      "model_mib": 39.76171875
+    },
+    "Pruned corp-attn_s40 | compiled | batch 1": {
+      "median_ms": 1.1554399728775024,
+      "p25_ms": 1.1479040384292603,
+      "p75_ms": 1.1755759716033936,
+      "images_per_s": 865.4711828167106,
+      "peak_mem_mib": 51.15234375,
+      "model_mib": 39.76171875
+    },
+    "Pruned corp-attn_s40 | compiled | batch 256": {
+      "median_ms": 82.9747200012207,
+      "p25_ms": 81.09619140625,
+      "p75_ms": 83.86227035522461,
+      "images_per_s": 3085.277057834408,
+      "peak_mem_mib": 465.3994140625,
+      "model_mib": 39.76171875
+    },
+    "Pruned corp-attn_s50 | eager | batch 1": {
+      "median_ms": 2.013184070587158,
+      "p25_ms": 1.994784027338028,
+      "p75_ms": 2.0640079975128174,
+      "images_per_s": 496.7255675276347,
+      "peak_mem_mib": 51.763671875,
+      "model_mib": 39.228515625
+    },
+    "Pruned corp-attn_s50 | eager | batch 256": {
+      "median_ms": 85.98272323608398,
+      "p25_ms": 84.51992607116699,
+      "p75_ms": 86.90108108520508,
+      "images_per_s": 2977.342312095619,
+      "peak_mem_mib": 898.755859375,
+      "model_mib": 39.228515625
+    },
+    "Pruned corp-attn_s50 | compiled | batch 1": {
+      "median_ms": 1.1480799913406372,
+      "p25_ms": 1.1431519985198975,
+      "p75_ms": 1.1578479707241058,
+      "images_per_s": 871.0194477235675,
+      "peak_mem_mib": 50.486328125,
+      "model_mib": 39.228515625
+    },
+    "Pruned corp-attn_s50 | compiled | batch 256": {
+      "median_ms": 80.41305541992188,
+      "p25_ms": 78.78656196594238,
+      "p75_ms": 81.34337615966797,
+      "images_per_s": 3183.5626523970814,
+      "peak_mem_mib": 457.8916015625,
+      "model_mib": 39.228515625
+    },
+    "Pruned corp-attn_s60 | eager | batch 1": {
+      "median_ms": 2.025936007499695,
+      "p25_ms": 2.0094319581985474,
+      "p75_ms": 2.047607958316803,
+      "images_per_s": 493.5990062362079,
+      "peak_mem_mib": 51.107421875,
+      "model_mib": 38.662109375
+    },
+    "Pruned corp-attn_s60 | eager | batch 256": {
+      "median_ms": 84.93209457397461,
+      "p25_ms": 83.03360748291016,
+      "p75_ms": 85.72278594970703,
+      "images_per_s": 3014.172690360624,
+      "peak_mem_mib": 897.974609375,
+      "model_mib": 38.662109375
+    },
+    "Pruned corp-attn_s60 | compiled | batch 1": {
+      "median_ms": 1.1448320150375366,
+      "p25_ms": 1.1372319459915161,
+      "p75_ms": 1.161728024482727,
+      "images_per_s": 873.4905967555529,
+      "peak_mem_mib": 49.80322265625,
+      "model_mib": 38.662109375
+    },
+    "Pruned corp-attn_s60 | compiled | batch 256": {
+      "median_ms": 79.74604797363281,
+      "p25_ms": 78.2861385345459,
+      "p75_ms": 80.64384269714355,
+      "images_per_s": 3210.1904295576337,
+      "peak_mem_mib": 457.662109375,
+      "model_mib": 38.662109375
+    },
+    "Pruned corp-attn_s70 | eager | batch 1": {
+      "median_ms": 2.039136052131653,
+      "p25_ms": 2.030016005039215,
+      "p75_ms": 2.0629119873046875,
+      "images_per_s": 490.4037663179117,
+      "peak_mem_mib": 50.642578125,
+      "model_mib": 38.197265625
+    },
+    "Pruned corp-attn_s70 | eager | batch 256": {
+      "median_ms": 83.34848022460938,
+      "p25_ms": 81.65361404418945,
+      "p75_ms": 83.9573745727539,
+      "images_per_s": 3071.441726473301,
+      "peak_mem_mib": 897.509765625,
+      "model_mib": 38.197265625
+    },
+    "Pruned corp-attn_s70 | compiled | batch 1": {
+      "median_ms": 1.1391199827194214,
+      "p25_ms": 1.1332160234451294,
+      "p75_ms": 1.1508159935474396,
+      "images_per_s": 877.8706503003308,
+      "peak_mem_mib": 49.306640625,
+      "model_mib": 38.197265625
+    },
+    "Pruned corp-attn_s70 | compiled | batch 256": {
+      "median_ms": 77.99193572998047,
+      "p25_ms": 76.37858963012695,
+      "p75_ms": 78.69235038757324,
+      "images_per_s": 3282.390642108302,
+      "peak_mem_mib": 461.02099609375,
+      "model_mib": 38.197265625
+    },
+    "Pruned vbp_s10 | eager | batch 1": {
+      "median_ms": 2.0736000537872314,
+      "p25_ms": 2.0624159574508667,
+      "p75_ms": 2.0999680161476135,
+      "images_per_s": 482.2530739105625,
+      "peak_mem_mib": 52.71484375,
+      "model_mib": 40.24658203125
+    },
+    "Pruned vbp_s10 | eager | batch 256": {
+      "median_ms": 101.22897720336914,
+      "p25_ms": 99.38640594482422,
+      "p75_ms": 101.78384208679199,
+      "images_per_s": 2528.9201478910104,
+      "peak_mem_mib": 904.83056640625,
+      "model_mib": 40.24658203125
+    },
+    "Pruned vbp_s10 | compiled | batch 1": {
+      "median_ms": 1.2635679841041565,
+      "p25_ms": 1.2554480135440826,
+      "p75_ms": 1.2810880243778229,
+      "images_per_s": 791.4097322661901,
+      "peak_mem_mib": 51.56103515625,
+      "model_mib": 40.24658203125
+    },
+    "Pruned vbp_s10 | compiled | batch 256": {
+      "median_ms": 89.0860481262207,
+      "p25_ms": 87.31468963623047,
+      "p75_ms": 89.92919921875,
+      "images_per_s": 2873.6261781114017,
+      "peak_mem_mib": 553.51123046875,
+      "model_mib": 40.24658203125
+    },
+    "Pruned vbp_s20 | eager | batch 1": {
+      "median_ms": 2.0331519842147827,
+      "p25_ms": 2.022511899471283,
+      "p75_ms": 2.059976041316986,
+      "images_per_s": 491.8471455965486,
+      "peak_mem_mib": 49.14599609375,
+      "model_mib": 36.677734375
+    },
+    "Pruned vbp_s20 | eager | batch 256": {
+      "median_ms": 97.19502639770508,
+      "p25_ms": 95.12903213500977,
+      "p75_ms": 98.3398380279541,
+      "images_per_s": 2633.879628289751,
+      "peak_mem_mib": 901.26171875,
+      "model_mib": 36.677734375
+    },
+    "Pruned vbp_s20 | compiled | batch 1": {
+      "median_ms": 1.268127977848053,
+      "p25_ms": 1.2533920109272003,
+      "p75_ms": 1.3662559986114502,
+      "images_per_s": 788.5639442297834,
+      "peak_mem_mib": 47.9921875,
+      "model_mib": 36.677734375
+    },
+    "Pruned vbp_s20 | compiled | batch 256": {
+      "median_ms": 86.41272354125977,
+      "p25_ms": 84.31793785095215,
+      "p75_ms": 86.98956680297852,
+      "images_per_s": 2962.52669177551,
+      "peak_mem_mib": 548.9072265625,
+      "model_mib": 36.677734375
+    },
+    "Pruned grail-mag-l2_s20 | eager | batch 1": {
+      "median_ms": 2.023423910140991,
+      "p25_ms": 2.0144479870796204,
+      "p75_ms": 2.045192062854767,
+      "images_per_s": 494.21181344561677,
+      "peak_mem_mib": 49.12841796875,
+      "model_mib": 36.66015625
+    },
+    "Pruned grail-mag-l2_s20 | eager | batch 256": {
+      "median_ms": 94.78017807006836,
+      "p25_ms": 92.85318565368652,
+      "p75_ms": 95.43025016784668,
+      "images_per_s": 2700.9866958758644,
+      "peak_mem_mib": 901.244140625,
+      "model_mib": 36.66015625
+    },
+    "Pruned grail-mag-l2_s20 | compiled | batch 1": {
+      "median_ms": 1.2535200119018555,
+      "p25_ms": 1.2441920340061188,
+      "p75_ms": 1.2741039991378784,
+      "images_per_s": 797.7535184961173,
+      "peak_mem_mib": 47.97265625,
+      "model_mib": 36.66015625
+    },
+    "Pruned grail-mag-l2_s20 | compiled | batch 256": {
+      "median_ms": 83.85400009155273,
+      "p25_ms": 82.0735969543457,
+      "p75_ms": 84.56644630432129,
+      "images_per_s": 3052.9253192512742,
+      "peak_mem_mib": 545.62744140625,
+      "model_mib": 36.66015625
+    },
+    "Pruned vbp_s30 | eager | batch 1": {
+      "median_ms": 2.0587679147720337,
+      "p25_ms": 2.045535922050476,
+      "p75_ms": 2.0910399556159973,
+      "images_per_s": 485.7274065837234,
+      "peak_mem_mib": 46.44677734375,
+      "model_mib": 33.978515625
+    },
+    "Pruned vbp_s30 | eager | batch 256": {
+      "median_ms": 94.63910675048828,
+      "p25_ms": 92.74237632751465,
+      "p75_ms": 95.44012641906738,
+      "images_per_s": 2705.0128513462455,
+      "peak_mem_mib": 898.5625,
+      "model_mib": 33.978515625
+    },
+    "Pruned vbp_s30 | compiled | batch 1": {
+      "median_ms": 1.2094879746437073,
+      "p25_ms": 1.2016400396823883,
+      "p75_ms": 1.2207520306110382,
+      "images_per_s": 826.7961492503317,
+      "peak_mem_mib": 45.29296875,
+      "model_mib": 33.978515625
+    },
+    "Pruned vbp_s30 | compiled | batch 256": {
+      "median_ms": 83.16928100585938,
+      "p25_ms": 81.32637405395508,
+      "p75_ms": 83.77959823608398,
+      "images_per_s": 3078.05955400726,
+      "peak_mem_mib": 544.12939453125,
+      "model_mib": 33.978515625
+    },
+    "Pruned vbp_s40 | eager | batch 1": {
+      "median_ms": 2.0376960039138794,
+      "p25_ms": 2.021375894546509,
+      "p75_ms": 2.0850080847740173,
+      "images_per_s": 490.75033669362966,
+      "peak_mem_mib": 43.740234375,
+      "model_mib": 31.27197265625
+    },
+    "Pruned vbp_s40 | eager | batch 256": {
+      "median_ms": 90.76070404052734,
+      "p25_ms": 88.69811058044434,
+      "p75_ms": 91.70882987976074,
+      "images_per_s": 2820.603946457802,
+      "peak_mem_mib": 895.85595703125,
+      "model_mib": 31.27197265625
+    },
+    "Pruned vbp_s40 | compiled | batch 1": {
+      "median_ms": 1.252511978149414,
+      "p25_ms": 1.1952640414237976,
+      "p75_ms": 1.2852720320224762,
+      "images_per_s": 798.3955582424845,
+      "peak_mem_mib": 42.58447265625,
+      "model_mib": 31.27197265625
+    },
+    "Pruned vbp_s40 | compiled | batch 256": {
+      "median_ms": 80.24491119384766,
+      "p25_ms": 78.30236625671387,
+      "p75_ms": 80.66560173034668,
+      "images_per_s": 3190.2334514593795,
+      "peak_mem_mib": 542.0537109375,
+      "model_mib": 31.27197265625
+    },
+    "Pruned grail-mag-l2_s40 | eager | batch 1": {
+      "median_ms": 2.0771520137786865,
+      "p25_ms": 2.0625919699668884,
+      "p75_ms": 2.1388880610466003,
+      "images_per_s": 481.42841417794597,
+      "peak_mem_mib": 43.73193359375,
+      "model_mib": 31.263671875
+    },
+    "Pruned grail-mag-l2_s40 | eager | batch 256": {
+      "median_ms": 94.02214431762695,
+      "p25_ms": 91.57579231262207,
+      "p75_ms": 94.86616897583008,
+      "images_per_s": 2722.7628327128673,
+      "peak_mem_mib": 896.451171875,
+      "model_mib": 31.263671875
+    },
+    "Pruned grail-mag-l2_s40 | compiled | batch 1": {
+      "median_ms": 1.1376639604568481,
+      "p25_ms": 1.1286559700965881,
+      "p75_ms": 1.191944032907486,
+      "images_per_s": 878.9941799671963,
+      "peak_mem_mib": 42.576171875,
+      "model_mib": 31.263671875
+    },
+    "Pruned grail-mag-l2_s40 | compiled | batch 256": {
+      "median_ms": 81.25284957885742,
+      "p25_ms": 79.40121459960938,
+      "p75_ms": 82.299072265625,
+      "images_per_s": 3150.658731686046,
+      "peak_mem_mib": 545.251953125,
+      "model_mib": 31.263671875
+    },
+    "Pruned vbp_s50 | eager | batch 1": {
+      "median_ms": 2.0270079374313354,
+      "p25_ms": 1.9941920042037964,
+      "p75_ms": 2.0865039825439453,
+      "images_per_s": 493.33797936046557,
+      "peak_mem_mib": 41.037109375,
+      "model_mib": 28.56884765625
+    },
+    "Pruned vbp_s50 | eager | batch 256": {
+      "median_ms": 85.7605094909668,
+      "p25_ms": 83.52281951904297,
+      "p75_ms": 86.4913444519043,
+      "images_per_s": 2985.0568929626593,
+      "peak_mem_mib": 893.75634765625,
+      "model_mib": 28.56884765625
+    },
+    "Pruned vbp_s50 | compiled | batch 1": {
+      "median_ms": 1.1703359484672546,
+      "p25_ms": 1.1650400459766388,
+      "p75_ms": 1.1806720495224,
+      "images_per_s": 854.4555102401688,
+      "peak_mem_mib": 39.88134765625,
+      "model_mib": 28.56884765625
+    },
+    "Pruned vbp_s50 | compiled | batch 256": {
+      "median_ms": 75.9106559753418,
+      "p25_ms": 74.16856575012207,
+      "p75_ms": 76.96767807006836,
+      "images_per_s": 3372.3855591915444,
+      "peak_mem_mib": 537.25927734375,
+      "model_mib": 28.56884765625
+    },
+    "Pruned vbp_s60 | eager | batch 1": {
+      "median_ms": 1.9978559613227844,
+      "p25_ms": 1.9882400333881378,
+      "p75_ms": 2.0216479301452637,
+      "images_per_s": 500.53658489869207,
+      "peak_mem_mib": 38.3330078125,
+      "model_mib": 25.86474609375
+    },
+    "Pruned vbp_s60 | eager | batch 256": {
+      "median_ms": 82.10105895996094,
+      "p25_ms": 81.17777442932129,
+      "p75_ms": 82.58713912963867,
+      "images_per_s": 3118.108380609879,
+      "peak_mem_mib": 891.05224609375,
+      "model_mib": 25.86474609375
+    },
+    "Pruned vbp_s60 | compiled | batch 1": {
+      "median_ms": 1.1283199787139893,
+      "p25_ms": 1.117192029953003,
+      "p75_ms": 1.15352001786232,
+      "images_per_s": 886.2734143374446,
+      "peak_mem_mib": 37.17724609375,
+      "model_mib": 25.86474609375
+    },
+    "Pruned vbp_s60 | compiled | batch 256": {
+      "median_ms": 71.69331359863281,
+      "p25_ms": 70.0216293334961,
+      "p75_ms": 72.3232364654541,
+      "images_per_s": 3570.76534965573,
+      "peak_mem_mib": 534.62841796875,
+      "model_mib": 25.86474609375
+    },
+    "Pruned vbp_s70 | eager | batch 1": {
+      "median_ms": 2.0198400020599365,
+      "p25_ms": 1.9882479906082153,
+      "p75_ms": 2.113792061805725,
+      "images_per_s": 495.08871939368896,
+      "peak_mem_mib": 35.63037109375,
+      "model_mib": 23.162109375
+    },
+    "Pruned vbp_s70 | eager | batch 256": {
+      "median_ms": 77.81132888793945,
+      "p25_ms": 75.48456192016602,
+      "p75_ms": 78.4653091430664,
+      "images_per_s": 3290.009355433066,
+      "peak_mem_mib": 888.349609375,
+      "model_mib": 23.162109375
+    },
+    "Pruned vbp_s70 | compiled | batch 1": {
+      "median_ms": 1.1168160438537598,
+      "p25_ms": 1.109760046005249,
+      "p75_ms": 1.1280640363693237,
+      "images_per_s": 895.4026095016808,
+      "peak_mem_mib": 34.474609375,
+      "model_mib": 23.162109375
+    },
+    "Pruned vbp_s70 | compiled | batch 256": {
+      "median_ms": 67.8482551574707,
+      "p25_ms": 66.08759307861328,
+      "p75_ms": 68.31811332702637,
+      "images_per_s": 3773.1257702330477,
+      "peak_mem_mib": 530.8671875,
+      "model_mib": 23.162109375
+    },
+    "Pruned grail-mag-l2_s70 | eager | batch 1": {
+      "median_ms": 2.012384057044983,
+      "p25_ms": 2.0007280707359314,
+      "p75_ms": 2.0540879368782043,
+      "images_per_s": 496.92303837291183,
+      "peak_mem_mib": 35.61083984375,
+      "model_mib": 23.142578125
+    },
+    "Pruned grail-mag-l2_s70 | eager | batch 256": {
+      "median_ms": 76.05759811401367,
+      "p25_ms": 74.20333671569824,
+      "p75_ms": 77.03577613830566,
+      "images_per_s": 3365.8701608778756,
+      "peak_mem_mib": 888.330078125,
+      "model_mib": 23.142578125
+    },
+    "Pruned grail-mag-l2_s70 | compiled | batch 1": {
+      "median_ms": 1.0934560298919678,
+      "p25_ms": 1.0855839550495148,
+      "p75_ms": 1.115119993686676,
+      "images_per_s": 914.5315153630813,
+      "peak_mem_mib": 34.455078125,
+      "model_mib": 23.142578125
+    },
+    "Pruned grail-mag-l2_s70 | compiled | batch 256": {
+      "median_ms": 65.99935913085938,
+      "p25_ms": 64.7044734954834,
+      "p75_ms": 66.58022499084473,
+      "images_per_s": 3878.825542721094,
+      "peak_mem_mib": 528.1474609375,
+      "model_mib": 23.142578125
+    }
+  }
+}

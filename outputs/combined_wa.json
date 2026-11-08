@@ -1,0 +1,287 @@
+{
+  "corp-both_s10+fimaq_w4a4": {
+    "run": "as published",
+    "config": "./configs/4bit/best.py",
+    "w_bit": 4,
+    "a_bit": 4,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 636.4956805706024,
+    "peak_gpu_mib_after_calibration": 4232.6083984375,
+    "block_reconstruction_s": 5468.084161996841,
+    "peak_gpu_mib_after_block_reconstruction": 4232.6083984375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 75.676,
+        "ci95": [
+          75.2779,
+          76.066
+        ],
+        "vs_fp32": {
+          "diff": -4.180000000000006,
+          "ci95": [
+            -4.462,
+            -3.92
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 63.55,
+        "ci95": [
+          62.59,
+          64.51025
+        ],
+        "vs_fp32": {
+          "diff": -4.970000000000008,
+          "ci95": [
+            -5.59,
+            -4.37
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 38.58333333333333,
+        "ci95": [
+          38.01325,
+          39.11666666666667
+        ],
+        "vs_fp32": {
+          "diff": -3.656666666666669,
+          "ci95": [
+            -4.023333333333333,
+            -3.3032500000000002
+          ]
+        }
+      }
+    }
+  },
+  "corp-both_s20+fimaq_w4a4": {
+    "run": "as published",
+    "config": "./configs/4bit/best.py",
+    "w_bit": 4,
+    "a_bit": 4,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 576.3192176818848,
+    "peak_gpu_mib_after_calibration": 3968.12744140625,
+    "block_reconstruction_s": 5145.448260545731,
+    "peak_gpu_mib_after_block_reconstruction": 3968.12744140625,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 73.98599999999999,
+        "ci95": [
+          73.59599999999999,
+          74.35804999999999
+        ],
+        "vs_fp32": {
+          "diff": -5.870000000000008,
+          "ci95": [
+            -6.162,
+            -5.599950000000001
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 61.69,
+        "ci95": [
+          60.749750000000006,
+          62.660000000000004
+        ],
+        "vs_fp32": {
+          "diff": -6.830000000000003,
+          "ci95": [
+            -7.53,
+            -6.13
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 36.40333333333333,
+        "ci95": [
+          35.839999999999996,
+          36.916666666666664
+        ],
+        "vs_fp32": {
+          "diff": -5.836666666666668,
+          "ci95": [
+            -6.226666666666667,
+            -5.43
+          ]
+        }
+      }
+    }
+  },
+  "corp-both_s10+fimaq_w3a3": {
+    "run": "as published",
+    "config": "./configs/3bit/best.py",
+    "w_bit": 3,
+    "a_bit": 3,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 689.0459921360016,
+    "peak_gpu_mib_after_calibration": 4232.6083984375,
+    "block_reconstruction_s": 5939.121342420578,
+    "peak_gpu_mib_after_block_reconstruction": 4232.6083984375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 68.692,
+        "ci95": [
+          68.26795,
+          69.12015
+        ],
+        "vs_fp32": {
+          "diff": -11.164000000000007,
+          "ci95": [
+            -11.5041,
+            -10.81195
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 56.36,
+        "ci95": [
+          55.400000000000006,
+          57.34
+        ],
+        "vs_fp32": {
+          "diff": -12.160000000000004,
+          "ci95": [
+            -12.950000000000001,
+            -11.359750000000002
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 30.443333333333335,
+        "ci95": [
+          29.89983333333333,
+          30.966666666666665
+        ],
+        "vs_fp32": {
+          "diff": -11.796666666666667,
+          "ci95": [
+            -12.22675,
+            -11.336583333333335
+          ]
+        }
+      }
+    }
+  },
+  "corp-both_s20+fimaq_w3a3": {
+    "run": "as published",
+    "config": "./configs/3bit/best.py",
+    "w_bit": 3,
+    "a_bit": 3,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 623.105242729187,
+    "peak_gpu_mib_after_calibration": 3968.12744140625,
+    "block_reconstruction_s": 5337.16538310051,
+    "peak_gpu_mib_after_block_reconstruction": 3968.12744140625,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 66.64999999999999,
+        "ci95": [
+          66.22395,
+          67.07600000000001
+        ],
+        "vs_fp32": {
+          "diff": -13.206000000000007,
+          "ci95": [
+            -13.568,
+            -12.854
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 53.959999999999994,
+        "ci95": [
+          53.02975,
+          54.96025
+        ],
+        "vs_fp32": {
+          "diff": -14.560000000000006,
+          "ci95": [
+            -15.4,
+            -13.709750000000001
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 29.14,
+        "ci95": [
+          28.60333333333333,
+          29.630083333333335
+        ],
+        "vs_fp32": {
+          "diff": -13.100000000000001,
+          "ci95": [
+            -13.530000000000001,
+            -12.63325
+          ]
+        }
+      }
+    }
+  },
+  "corp-both_s30+fimaq_w4a4": {
+    "run": "as published",
+    "config": "./configs/4bit/best.py",
+    "w_bit": 4,
+    "a_bit": 4,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 533.7871067523956,
+    "peak_gpu_mib_after_calibration": 3835.45458984375,
+    "block_reconstruction_s": 4866.073949575424,
+    "peak_gpu_mib_after_block_reconstruction": 3835.45458984375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 71.31,
+        "ci95": [
+          70.91395,
+          71.6981
+        ],
+        "vs_fp32": {
+          "diff": -8.54600000000001,
+          "ci95": [
+            -8.894,
+            -8.23395
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 58.68,
+        "ci95": [
+          57.730000000000004,
+          59.67025
+        ],
+        "vs_fp32": {
+          "diff": -9.840000000000003,
+          "ci95": [
+            -10.61,
+            -9.08975
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 34.8,
+        "ci95": [
+          34.21333333333333,
+          35.32333333333334
+        ],
+        "vs_fp32": {
+          "diff": -7.440000000000002,
+          "ci95": [
+            -7.840083333333333,
+            -7.0233333333333325
+          ]
+        }
+      }
+    }
+  }
+}

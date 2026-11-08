@@ -1,0 +1,228 @@
+diff --git a/configs/3bit/w3a32.py b/configs/3bit/w3a32.py
+new file mode 100644
+index 0000000..02bad20
+--- /dev/null
++++ b/configs/3bit/w3a32.py
+@@ -0,0 +1,29 @@
++# weights-only variant of best.py: activations kept at full precision (32 = no quantization)
++
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.optim_size = 1024
++        self.calib_size = 128
++        self.optim_batch_size = 32
++        self.calib_batch_size = 32
++        self.w_bit = 3
++        self.a_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.calib_metric = 'mse'
++        self.matmul_head_channel_wise = True
++        self.token_channel_wise = False
++        self.eq_n = 128
++        self.search_round = 3
++        # optimization settings
++        self.keep_gpu = True
++        self.optim_metric = 'hessian_perturb'
++        self.use_mean_hessian = True
++        self.temp = 20
++        # reconstruction settings
++        self.recon_metric = 'hessian_perturb'
++        self.pct = 0.99
++        # qdrop settings
++        self.optim_mode = 'qdrop'
++        self.drop_prob = 0.5
+diff --git a/configs/4bit/w4a32.py b/configs/4bit/w4a32.py
+new file mode 100644
+index 0000000..7904db1
+--- /dev/null
++++ b/configs/4bit/w4a32.py
+@@ -0,0 +1,29 @@
++# weights-only variant of best.py: activations kept at full precision (32 = no quantization)
++
++class Config:
++    def __init__(self):
++        # calibration settings
++        self.optim_size = 1024
++        self.calib_size = 128
++        self.optim_batch_size = 32
++        self.calib_batch_size = 32
++        self.w_bit = 4
++        self.a_bit = 32
++        self.qconv_a_bit = 32
++        self.qhead_a_bit = 32
++        self.calib_metric = 'mse'
++        self.matmul_head_channel_wise = True
++        self.token_channel_wise = False
++        self.eq_n = 128
++        self.search_round = 3
++        # optimization settings
++        self.keep_gpu = True
++        self.optim_metric = 'hessian_perturb'
++        self.use_mean_hessian = True
++        self.temp = 20
++        # reconstruction settings
++        self.recon_metric = 'hessian_perturb'
++        self.pct = 0.98
++        # qdrop settings
++        self.optim_mode = 'qdrop'
++        self.drop_prob = 0.5
+diff --git a/quant_layers/linear.py b/quant_layers/linear.py
+index 7159da2..5ecf0b6 100644
+--- a/quant_layers/linear.py
++++ b/quant_layers/linear.py
+@@ -512,14 +512,18 @@ class AsymmetricallyBatchingQuantLinear(PTQSLBatchingQuantLinear):
+         self._initialize_calib_parameters()
+ 
+         weight_scale_candidates, weight_zero_point_candidates = self.calculate_percentile_weight_candidates()
+-        a_scale_candidates, a_zero_point_candidates = self.calculate_percentile_activation_candidates()
++        quant_act = self.a_quantizer.n_bits < 32
++        if quant_act:
++            a_scale_candidates, a_zero_point_candidates = self.calculate_percentile_activation_candidates()
+         self._search_best_w_scale_self(weight_scale_candidates, weight_zero_point_candidates)
+-        self._search_best_a_scale_self(a_scale_candidates, a_zero_point_candidates)
++        if quant_act:
++            self._search_best_a_scale_self(a_scale_candidates, a_zero_point_candidates)
+         for e in range(self.search_round):
+             self._search_best_w_scale(weight_scale_candidates, weight_zero_point_candidates)
+-            self._search_best_a_scale(a_scale_candidates, a_zero_point_candidates)
++            if quant_act:
++                self._search_best_a_scale(a_scale_candidates, a_zero_point_candidates)
+         
+-        if (self.token_channel_wise and len(self.raw_input.shape) == 3):
++        if (quant_act and self.token_channel_wise and len(self.raw_input.shape) == 3):
+             B, N, C = self.raw_input.shape
+             token_wise_scale = self.a_quantizer.scale.expand(1, N, 1)
+             del self.a_quantizer.scale
+diff --git a/test_quant.py b/test_quant.py
+index f13c365..b206a13 100644
+--- a/test_quant.py
++++ b/test_quant.py
+@@ -57,6 +57,13 @@ def get_args_parser():
+                         type=int, help="size of calibration set")
+     parser.add_argument("--calib-batch-size", default=argparse.SUPPRESS,
+                         type=int, help="batchsize of calibration set")
++    parser.add_argument("--score-name", default=None, type=str,
++                        help="after the run, score the model in memory on our three test sets under this name")
++    parser.add_argument("--score-out", default=None, type=str, help="summary json the score is added to")
++    parser.add_argument("--score-per-image", default=None, type=str, help="npz the per-image results are added to")
++    parser.add_argument("--repo", default=None, type=str, help="our repository, for deitc")
++    parser.add_argument("--calib-list", default=None, type=str,
++                        help="file with one train image per line (wnid/file); calibration takes the first N")
+     parser.add_argument("--val-batch-size", default=200,
+                         type=int, help="batchsize of validation set")
+     parser.add_argument("--num-workers", default=8, type=int,
+@@ -147,6 +154,8 @@ def load_model(model, args, device, mode='calibrate'):
+     
+ def main(args):
+     logging.info("{} - start the process.".format(get_cur_time()))
++    stages = {}  # protocol: wall-clock seconds and peak GPU memory of each stage
++    torch.cuda.reset_peak_memory_stats()
+     logging.info(str(args))
+     dir_path = os.path.dirname(os.path.abspath(args.config))
+     if dir_path not in sys.path:
+@@ -227,11 +236,15 @@ def main(args):
+                 val_loss, val_prec1, val_prec5 = validate(val_loader, model, criterion, print_freq=args.print_freq, device=device)
+         elif args.load_calibrate_checkpoint is None:
+             logging.info('Building calibrator ...')
+-            calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed)
++            calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed, calib_list=args.calib_list)
+ 
+             logging.info('{} - Start reconstructing MLP blocks ...'.format(get_cur_time()))
++            t_stage = time.time()
+             mlp_reconstructor = MLPReconstructor(model, full_model, calib_loader, metric=cfg.recon_metric, temp=cfg.temp)
+             mlp_reconstructor.reconstruct_model(pct=cfg.pct)
++            torch.cuda.synchronize()
++            stages["mlp_reconstruction_s"] = time.time() - t_stage
++            stages["peak_gpu_mib_after_mlp_reconstruction"] = torch.cuda.max_memory_allocated() / 2**20
+             logging.info("{} - MLP reconstruction finished.".format(get_cur_time()))
+             
+             save_path = os.path.join(root_path, '{}_reconstructed.pth'.format(args.model))
+@@ -254,11 +267,15 @@ def main(args):
+                 val_loss, val_prec1, val_prec5 = validate(val_loader, model, criterion, print_freq=args.print_freq, device=device)
+         else:
+             logging.info("{} - start {} guided calibration".format(get_cur_time(), cfg.calib_metric))
+-            calib_loader = g.calib_loader(num=cfg.calib_size, batch_size=cfg.calib_batch_size, seed=args.seed)
++            calib_loader = g.calib_loader(num=cfg.calib_size, batch_size=cfg.calib_batch_size, seed=args.seed, calib_list=args.calib_list)
++            t_stage = time.time()
+             quant_calibrator = QuantCalibrator(model, calib_loader)
+             quant_calibrator.batching_quant_calib()
+             model = wrap_reparamed_modules_in_net(model)
+             model.to(device)
++            torch.cuda.synchronize()
++            stages["calibration_s"] = time.time() - t_stage
++            stages["peak_gpu_mib_after_calibration"] = torch.cuda.max_memory_allocated() / 2**20
+             logging.info("{} - {} guided calibration finished.".format(get_cur_time(), cfg.calib_metric))
+             save_model(model, args, cfg, mode='calibrate')
+             logging.info('Validating after calibration ...')
+@@ -266,21 +283,33 @@ def main(args):
+     
+     if args.optimize:
+         logging.info('Building calibrator ...')
+-        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed)
++        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed, calib_list=args.calib_list)
+         logging.info("{} - start {} guided block reconstruction".format(get_cur_time(), cfg.optim_metric))
++        t_stage = time.time()
+         block_reconstructor = BlockReconstructor(model, full_model, calib_loader, metric=cfg.optim_metric, temp=cfg.temp, use_mean_hessian=cfg.use_mean_hessian)
+-        block_reconstructor.reconstruct_model(quant_act=True, mode=cfg.optim_mode, drop_prob=cfg.drop_prob, keep_gpu=cfg.keep_gpu)
++        block_reconstructor.reconstruct_model(quant_act=cfg.a_bit < 32, mode=cfg.optim_mode, drop_prob=cfg.drop_prob, keep_gpu=cfg.keep_gpu)
++        torch.cuda.synchronize()
++        stages["block_reconstruction_s"] = time.time() - t_stage
++        stages["peak_gpu_mib_after_block_reconstruction"] = torch.cuda.max_memory_allocated() / 2**20
+         logging.info("{} - {} guided block reconstruction finished.".format(get_cur_time(), cfg.optim_metric))
+         save_model(model, args, cfg, mode='optimize')
+     if args.load_optimize_checkpoint:
+         logging.info('Building calibrator ...')
+-        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed)
++        calib_loader = g.calib_loader(num=cfg.optim_size, batch_size=cfg.optim_batch_size, seed=args.seed, calib_list=args.calib_list)
+         model = load_model(model, args, device, mode='optimize')
+     if args.optimize or args.test_optimize_checkpoint:
+         logging.info('Validating on calibration set after block reconstruction ...')
+         val_loss, val_prec1, val_prec5 = validate(calib_loader, model, criterion, print_freq=args.print_freq, device=device)
+         logging.info('Validating on test set after block reconstruction ...')
+         val_loss, val_prec1, val_prec5 = validate(val_loader, model, criterion, print_freq=args.print_freq, device=device)
++    logging.info("protocol stages: {}".format(stages))
++    if args.score_name:
++        sys.path.insert(0, args.repo)
++        from deitc.evaluate import score_in_process
++        record = {"run": "as published" if cfg.a_bit < 32 else "weights-only", "config": args.config,
++                  "w_bit": cfg.w_bit, "a_bit": cfg.a_bit, "calib_size": cfg.calib_size, "optim_size": cfg.optim_size,
++                  "reconstruct_mlp": bool(getattr(args, "reconstruct_mlp", False)), **stages}
++        score_in_process(model, g.val_transform, args.score_name, args.score_out, args.score_per_image, record, device)
+     logging.info("{} - finished the process.".format(get_cur_time()))
+     
+ if __name__ == "__main__":
+diff --git a/utils/datasets.py b/utils/datasets.py
+index d8e1de6..27c5a6a 100644
+--- a/utils/datasets.py
++++ b/utils/datasets.py
+@@ -59,9 +59,14 @@ class LoaderGenerator():
+         assert self.val_set is not None
+         return torch.utils.data.DataLoader(self.val_set, batch_size=self.val_batch_size, shuffle=False, **self.val_loader_kwargs)
+ 
+-    def calib_loader(self, num=1024, batch_size=32, seed=3, in_memory=True):
++    def calib_loader(self, num=1024, batch_size=32, seed=3, in_memory=True, calib_list=None):
+         np.random.seed(seed)
+         inds = np.random.permutation(len(self.train_set))[:num]
++        if calib_list is not None:
++            # shared protocol list: the first `num` files, in the list's order
++            names = [l.strip() for l in open(calib_list) if l.strip()][:num]
++            where = {os.path.relpath(f, os.path.join(self.root, 'train')): i for i, (f, _) in enumerate(self.train_set.samples)}
++            inds = [where[n] for n in names]
+         if in_memory:
+             preloaded_data = [self.train_set[i] for i in inds]
+             self._calib_set = CacheDataset(preloaded_data)
+diff --git a/utils/wrap_net.py b/utils/wrap_net.py
+index a0a50fd..c290b10 100644
+--- a/utils/wrap_net.py
++++ b/utils/wrap_net.py
+@@ -93,7 +93,7 @@ def wrap_modules_in_net(model, cfg, reparam=False, recon=False):
+             new_module.weight.data.copy_(module.weight.data)
+             new_module.bias.data.copy_(module.bias.data)
+             setattr(father_module, name[idx:], new_module)
+-        if isinstance(module, MatMul):
++        if isinstance(module, MatMul) and cfg.a_bit < 32:
+             idx = idx + 1 if idx != 0 else idx
+             new_module = AsymmetricallyBatchingQuantMatMul(
+                 A_bit = cfg.a_bit,

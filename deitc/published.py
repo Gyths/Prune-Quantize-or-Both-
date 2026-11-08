@@ -17,6 +17,7 @@ def _adalog_layers(ckpt):
 
 
 def _adalog_grid(ckpt, layer, bits):
+    bits = bits[layer + ".weight"] if isinstance(bits, dict) else bits   # a dict for a model that mixes widths
     w = ckpt[layer + ".weight"].float()
     rows = w.reshape(w.shape[0], -1)
     scale = ckpt[layer + ".w_quantizer.scale"].float().reshape(w.shape[0], 1)
@@ -26,10 +27,18 @@ def _adalog_grid(ckpt, layer, bits):
     return w.shape, q, scale, zero
 
 
-def adalog_to_packable(ckpt, bits):
-    """{name: FP16 tensor or {q, scale, zero}} for `save_packed_rows`, keyed like our DeiT."""
+def adalog_to_packable(ckpt, bits, activations=False):
+    """{name: FP16 tensor or {q, scale, zero}} for `save_packed_rows`, keyed like our DeiT.
+
+    With `activations=True` (a run as published) the file also keeps, in FP32 and under AdaLog's own names, the
+    parameters of the activation quantizers (scales, zero points, log tables), which the run needs at inference."""
     layers = set(_adalog_layers(ckpt))
     out = {}
+    if activations:
+        out.update({k: v.float() for k, v in ckpt.items()
+                    if "_quantizer." in k and ".w_quantizer." not in k and v.is_floating_point()})
+        out.update({k: v for k, v in ckpt.items()
+                    if "_quantizer." in k and ".w_quantizer." not in k and not v.is_floating_point()})
     for k in deit_small().state_dict():
         layer = k[: -len(".weight")]
         if k.endswith(".weight") and layer in layers:

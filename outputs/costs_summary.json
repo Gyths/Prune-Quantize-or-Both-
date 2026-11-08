@@ -1,0 +1,1030 @@
+{
+  "convention": "BOPs = MACs x bits of both operands; activations at full precision count as 32 bits, so points with float activations give consumer-GPU BOPs, kept as a comparison",
+  "macs_per_layer": {
+    "DeiT-S": {
+      "patch_embed.proj": 57802752,
+      "head": 384000,
+      "blocks.0.attn.qkv": 87146496,
+      "blocks.0.attn.proj": 29048832,
+      "blocks.0.mlp.fc1": 116195328,
+      "blocks.0.mlp.fc2": 116195328,
+      "blocks.0.attn.qk": 14902656,
+      "blocks.0.attn.av": 14902656,
+      "blocks.1.attn.qkv": 87146496,
+      "blocks.1.attn.proj": 29048832,
+      "blocks.1.mlp.fc1": 116195328,
+      "blocks.1.mlp.fc2": 116195328,
+      "blocks.1.attn.qk": 14902656,
+      "blocks.1.attn.av": 14902656,
+      "blocks.2.attn.qkv": 87146496,
+      "blocks.2.attn.proj": 29048832,
+      "blocks.2.mlp.fc1": 116195328,
+      "blocks.2.mlp.fc2": 116195328,
+      "blocks.2.attn.qk": 14902656,
+      "blocks.2.attn.av": 14902656,
+      "blocks.3.attn.qkv": 87146496,
+      "blocks.3.attn.proj": 29048832,
+      "blocks.3.mlp.fc1": 116195328,
+      "blocks.3.mlp.fc2": 116195328,
+      "blocks.3.attn.qk": 14902656,
+      "blocks.3.attn.av": 14902656,
+      "blocks.4.attn.qkv": 87146496,
+      "blocks.4.attn.proj": 29048832,
+      "blocks.4.mlp.fc1": 116195328,
+      "blocks.4.mlp.fc2": 116195328,
+      "blocks.4.attn.qk": 14902656,
+      "blocks.4.attn.av": 14902656,
+      "blocks.5.attn.qkv": 87146496,
+      "blocks.5.attn.proj": 29048832,
+      "blocks.5.mlp.fc1": 116195328,
+      "blocks.5.mlp.fc2": 116195328,
+      "blocks.5.attn.qk": 14902656,
+      "blocks.5.attn.av": 14902656,
+      "blocks.6.attn.qkv": 87146496,
+      "blocks.6.attn.proj": 29048832,
+      "blocks.6.mlp.fc1": 116195328,
+      "blocks.6.mlp.fc2": 116195328,
+      "blocks.6.attn.qk": 14902656,
+      "blocks.6.attn.av": 14902656,
+      "blocks.7.attn.qkv": 87146496,
+      "blocks.7.attn.proj": 29048832,
+      "blocks.7.mlp.fc1": 116195328,
+      "blocks.7.mlp.fc2": 116195328,
+      "blocks.7.attn.qk": 14902656,
+      "blocks.7.attn.av": 14902656,
+      "blocks.8.attn.qkv": 87146496,
+      "blocks.8.attn.proj": 29048832,
+      "blocks.8.mlp.fc1": 116195328,
+      "blocks.8.mlp.fc2": 116195328,
+      "blocks.8.attn.qk": 14902656,
+      "blocks.8.attn.av": 14902656,
+      "blocks.9.attn.qkv": 87146496,
+      "blocks.9.attn.proj": 29048832,
+      "blocks.9.mlp.fc1": 116195328,
+      "blocks.9.mlp.fc2": 116195328,
+      "blocks.9.attn.qk": 14902656,
+      "blocks.9.attn.av": 14902656,
+      "blocks.10.attn.qkv": 87146496,
+      "blocks.10.attn.proj": 29048832,
+      "blocks.10.mlp.fc1": 116195328,
+      "blocks.10.mlp.fc2": 116195328,
+      "blocks.10.attn.qk": 14902656,
+      "blocks.10.attn.av": 14902656,
+      "blocks.11.attn.qkv": 87146496,
+      "blocks.11.attn.proj": 29048832,
+      "blocks.11.mlp.fc1": 116195328,
+      "blocks.11.mlp.fc2": 116195328,
+      "blocks.11.attn.qk": 14902656,
+      "blocks.11.attn.av": 14902656
+    },
+    "DeiT-Ti": {
+      "patch_embed.proj": 28901376,
+      "head": 192000,
+      "blocks.0.attn.qkv": 21786624,
+      "blocks.0.attn.proj": 7262208,
+      "blocks.0.mlp.fc1": 29048832,
+      "blocks.0.mlp.fc2": 29048832,
+      "blocks.0.attn.qk": 7451328,
+      "blocks.0.attn.av": 7451328,
+      "blocks.1.attn.qkv": 21786624,
+      "blocks.1.attn.proj": 7262208,
+      "blocks.1.mlp.fc1": 29048832,
+      "blocks.1.mlp.fc2": 29048832,
+      "blocks.1.attn.qk": 7451328,
+      "blocks.1.attn.av": 7451328,
+      "blocks.2.attn.qkv": 21786624,
+      "blocks.2.attn.proj": 7262208,
+      "blocks.2.mlp.fc1": 29048832,
+      "blocks.2.mlp.fc2": 29048832,
+      "blocks.2.attn.qk": 7451328,
+      "blocks.2.attn.av": 7451328,
+      "blocks.3.attn.qkv": 21786624,
+      "blocks.3.attn.proj": 7262208,
+      "blocks.3.mlp.fc1": 29048832,
+      "blocks.3.mlp.fc2": 29048832,
+      "blocks.3.attn.qk": 7451328,
+      "blocks.3.attn.av": 7451328,
+      "blocks.4.attn.qkv": 21786624,
+      "blocks.4.attn.proj": 7262208,
+      "blocks.4.mlp.fc1": 29048832,
+      "blocks.4.mlp.fc2": 29048832,
+      "blocks.4.attn.qk": 7451328,
+      "blocks.4.attn.av": 7451328,
+      "blocks.5.attn.qkv": 21786624,
+      "blocks.5.attn.proj": 7262208,
+      "blocks.5.mlp.fc1": 29048832,
+      "blocks.5.mlp.fc2": 29048832,
+      "blocks.5.attn.qk": 7451328,
+      "blocks.5.attn.av": 7451328,
+      "blocks.6.attn.qkv": 21786624,
+      "blocks.6.attn.proj": 7262208,
+      "blocks.6.mlp.fc1": 29048832,
+      "blocks.6.mlp.fc2": 29048832,
+      "blocks.6.attn.qk": 7451328,
+      "blocks.6.attn.av": 7451328,
+      "blocks.7.attn.qkv": 21786624,
+      "blocks.7.attn.proj": 7262208,
+      "blocks.7.mlp.fc1": 29048832,
+      "blocks.7.mlp.fc2": 29048832,
+      "blocks.7.attn.qk": 7451328,
+      "blocks.7.attn.av": 7451328,
+      "blocks.8.attn.qkv": 21786624,
+      "blocks.8.attn.proj": 7262208,
+      "blocks.8.mlp.fc1": 29048832,
+      "blocks.8.mlp.fc2": 29048832,
+      "blocks.8.attn.qk": 7451328,
+      "blocks.8.attn.av": 7451328,
+      "blocks.9.attn.qkv": 21786624,
+      "blocks.9.attn.proj": 7262208,
+      "blocks.9.mlp.fc1": 29048832,
+      "blocks.9.mlp.fc2": 29048832,
+      "blocks.9.attn.qk": 7451328,
+      "blocks.9.attn.av": 7451328,
+      "blocks.10.attn.qkv": 21786624,
+      "blocks.10.attn.proj": 7262208,
+      "blocks.10.mlp.fc1": 29048832,
+      "blocks.10.mlp.fc2": 29048832,
+      "blocks.10.attn.qk": 7451328,
+      "blocks.10.attn.av": 7451328,
+      "blocks.11.attn.qkv": 21786624,
+      "blocks.11.attn.proj": 7262208,
+      "blocks.11.mlp.fc1": 29048832,
+      "blocks.11.mlp.fc2": 29048832,
+      "blocks.11.attn.qk": 7451328,
+      "blocks.11.attn.av": 7451328
+    }
+  },
+  "points": {
+    "DeiT-S FP32": {
+      "model": "DeiT-S",
+      "run": "dense baseline",
+      "activations": "full precision",
+      "size_mb": 88.216496,
+      "gmacs": 4.598882304,
+      "gbops": 4709.255479296
+    },
+    "DeiT-S FP16": {
+      "model": "DeiT-S",
+      "run": "dense baseline",
+      "activations": "FP16",
+      "size_mb": 44.115144,
+      "gmacs": 4.598882304,
+      "gbops": 1177.313869824
+    },
+    "DeiT-S INT8": {
+      "model": "DeiT-S",
+      "run": "dense baseline",
+      "activations": "full precision",
+      "size_mb": 22.970696,
+      "gmacs": 4.598882304,
+      "gbops": 1466.895433728
+    },
+    "DeiT-S INT4": {
+      "model": "DeiT-S",
+      "run": "dense baseline",
+      "activations": "full precision",
+      "size_mb": 13.602712,
+      "gmacs": 4.598882304,
+      "gbops": 931.467362304
+    },
+    "DeiT-Ti FP32": {
+      "model": "DeiT-Ti",
+      "run": "dense baseline",
+      "activations": "full precision",
+      "size_mb": 22.883344,
+      "gmacs": 1.2536832,
+      "gbops": 1283.7715968
+    },
+    "DeiT-Ti FP16": {
+      "model": "DeiT-Ti",
+      "run": "dense baseline",
+      "activations": "FP16",
+      "size_mb": 11.448352,
+      "gmacs": 1.2536832,
+      "gbops": 320.9428992
+    },
+    "DeiT-Ti INT8": {
+      "model": "DeiT-Ti",
+      "run": "dense baseline",
+      "activations": "full precision",
+      "size_mb": 6.187632,
+      "gmacs": 1.2536832,
+      "gbops": 465.733681152
+    },
+    "DeiT-Ti INT4": {
+      "model": "DeiT-Ti",
+      "run": "dense baseline",
+      "activations": "full precision",
+      "size_mb": 3.828368,
+      "gmacs": 1.2536832,
+      "gbops": 331.876663296
+    },
+    "AdaLog W4": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 11.514648,
+      "gmacs": 4.598882304,
+      "gbops": 909.123649536
+    },
+    "AdaLog W3": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 8.775568,
+      "gmacs": 4.598882304,
+      "gbops": 773.404655616
+    },
+    "AdaLog W6": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 16.992832,
+      "gmacs": 4.598882304,
+      "gbops": 1180.561637376
+    },
+    "AdaLog W3A3": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 8.806248,
+      "gmacs": 4.598882304,
+      "gbops": 42.256982016
+    },
+    "AdaLog W4A4": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 11.546968,
+      "gmacs": 4.598882304,
+      "gbops": 74.506960896
+    },
+    "AdaLog W6A6": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 17.034384,
+      "gmacs": 4.598882304,
+      "gbops": 166.253395968
+    },
+    "FIMA-Q W4": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 11.514648,
+      "gmacs": 4.598882304,
+      "gbops": 909.123649536
+    },
+    "FIMA-Q W4A4": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 11.763124,
+      "gmacs": 4.598882304,
+      "gbops": 74.506960896
+    },
+    "APHQ-ViT W4A4": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 11.537396,
+      "gmacs": 4.598882304,
+      "gbops": 74.506960896
+    },
+    "FIMA-Q W3A3": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 9.024036,
+      "gmacs": 4.598882304,
+      "gbops": 42.256982016
+    },
+    "APHQ-ViT W3A3": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 8.798308,
+      "gmacs": 4.598882304,
+      "gbops": 42.256982016
+    },
+    "FIMA-Q W6A6": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 17.241316,
+      "gmacs": 4.598882304,
+      "gbops": 166.253395968
+    },
+    "FIMA-Q W3": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 8.77556,
+      "gmacs": 4.598882304,
+      "gbops": 773.404655616
+    },
+    "FIMA-Q W6": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 16.992832,
+      "gmacs": 4.598882304,
+      "gbops": 1180.561637376
+    },
+    "APHQ-ViT W4, no MLP reconstruction": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 11.514648,
+      "gmacs": 4.598882304,
+      "gbops": 909.123649536
+    },
+    "APHQ-ViT W3, no MLP reconstruction": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 8.77556,
+      "gmacs": 4.598882304,
+      "gbops": 773.404655616
+    },
+    "FIMA-Q W2": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 6.036488,
+      "gmacs": 4.598882304,
+      "gbops": 637.685661696
+    },
+    "RepQ-ViT W4A4": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 11.53408,
+      "gmacs": 4.598882304,
+      "gbops": 74.506960896
+    },
+    "RepQ-ViT W6A6": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 17.012264,
+      "gmacs": 4.598882304,
+      "gbops": 166.253395968
+    },
+    "RepQ-ViT W4": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 11.514648,
+      "gmacs": 4.598882304,
+      "gbops": 909.123649536
+    },
+    "RepQ-ViT W6": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 16.992832,
+      "gmacs": 4.598882304,
+      "gbops": 1180.561637376
+    },
+    "PTQ4ViT W8A8": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 22.225654,
+      "gmacs": 4.598882304,
+      "gbops": 305.42659584
+    },
+    "PTQ4ViT W6A6": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 16.747406,
+      "gmacs": 4.598882304,
+      "gbops": 174.576992256
+    },
+    "PTQ4ViT W8": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 22.216014,
+      "gmacs": 4.598882304,
+      "gbops": 1451.999625216
+    },
+    "PTQ4ViT W6": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 16.737766,
+      "gmacs": 4.598882304,
+      "gbops": 1180.561637376
+    },
+    "FIMA-Q W8A8": {
+      "model": "DeiT-S",
+      "run": "as published",
+      "activations": "quantized",
+      "size_mb": 22.719564,
+      "gmacs": 4.598882304,
+      "gbops": 294.328467456
+    },
+    "APHQ-ViT W4": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 11.514648,
+      "gmacs": 4.598882304,
+      "gbops": 909.123649536
+    },
+    "APHQ-ViT W3": {
+      "model": "DeiT-S",
+      "run": "weights-only",
+      "activations": "full precision",
+      "size_mb": 8.77556,
+      "gmacs": 4.598882304,
+      "gbops": 773.404655616
+    },
+    "DeiT-S W8A8 torchao": {
+      "model": "DeiT-S",
+      "run": "format only",
+      "activations": "quantized (linears)",
+      "size_mb": null,
+      "gmacs": 4.598882304,
+      "gbops": 693.544943616
+    },
+    "DeiT-Ti W8A8 torchao": {
+      "model": "DeiT-Ti",
+      "run": "format only",
+      "activations": "quantized (linears)",
+      "size_mb": null,
+      "gmacs": 1.2536832,
+      "gbops": 279.84396288
+    },
+    "Pruned corp-both_s10": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 40.607624,
+      "gmacs": 4.237161936,
+      "gbops": 1084.713455616,
+      "compress_seconds": 152.92656111717224
+    },
+    "Pruned corp-both_s20": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 37.007664,
+      "gmacs": 3.86356956,
+      "gbops": 989.07380736,
+      "compress_seconds": 141.1288707256317
+    },
+    "Pruned corp-both_s30": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 33.50016,
+      "gmacs": 3.501849192,
+      "gbops": 896.473393152,
+      "compress_seconds": 134.7400679588318
+    },
+    "Pruned corp-both_s40": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 29.900176,
+      "gmacs": 3.128256816,
+      "gbops": 800.833744896,
+      "compress_seconds": 129.7347548007965
+    },
+    "Pruned corp-both_s50": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 26.392664,
+      "gmacs": 2.766536448,
+      "gbops": 708.233330688,
+      "compress_seconds": 124.80538415908813
+    },
+    "Pruned corp-both_s60": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 22.885136,
+      "gmacs": 2.40481608,
+      "gbops": 615.63291648,
+      "compress_seconds": 123.74342036247253
+    },
+    "Pruned corp-both_s70": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 19.285184,
+      "gmacs": 2.031223704,
+      "gbops": 519.993268224,
+      "compress_seconds": 123.26869535446167
+    },
+    "Pruned corp-mlp_s10": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 41.272904,
+      "gmacs": 4.319287296,
+      "gbops": 1105.737547776,
+      "compress_seconds": 115.4645881652832
+    },
+    "Pruned corp-mlp_s20": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 38.449136,
+      "gmacs": 4.04150784,
+      "gbops": 1034.62600704,
+      "compress_seconds": 115.05680465698242
+    },
+    "Pruned corp-mlp_s30": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 35.606904,
+      "gmacs": 3.761912832,
+      "gbops": 963.049684992,
+      "compress_seconds": 115.44911670684814
+    },
+    "Pruned corp-mlp_s40": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 32.783096,
+      "gmacs": 3.484133376,
+      "gbops": 891.938144256,
+      "compress_seconds": 115.20307040214539
+    },
+    "Pruned corp-mlp_s50": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 29.940856,
+      "gmacs": 3.204538368,
+      "gbops": 820.361822208,
+      "compress_seconds": 115.3948106765747
+    },
+    "Pruned corp-mlp_s60": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 27.098632,
+      "gmacs": 2.92494336,
+      "gbops": 748.78550016,
+      "compress_seconds": 114.99195528030396
+    },
+    "Pruned corp-mlp_s70": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 24.27484,
+      "gmacs": 2.647163904,
+      "gbops": 677.673959424,
+      "compress_seconds": 115.065758228302
+    },
+    "Pruned corp-attn_s10": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 43.449864,
+      "gmacs": 4.516756944,
+      "gbops": 1156.289777664,
+      "compress_seconds": 152.82586526870728
+    },
+    "Pruned corp-attn_s20": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 42.67368,
+      "gmacs": 4.420944024,
+      "gbops": 1131.761670144,
+      "compress_seconds": 140.89912796020508
+    },
+    "Pruned corp-attn_s30": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 42.0084,
+      "gmacs": 4.338818664,
+      "gbops": 1110.737577984,
+      "compress_seconds": 134.65936541557312
+    },
+    "Pruned corp-attn_s40": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 41.232224,
+      "gmacs": 4.243005744,
+      "gbops": 1086.209470464,
+      "compress_seconds": 130.10367679595947
+    },
+    "Pruned corp-attn_s50": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 40.566944,
+      "gmacs": 4.160880384,
+      "gbops": 1065.185378304,
+      "compress_seconds": 124.59286260604858
+    },
+    "Pruned corp-attn_s60": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 39.901656,
+      "gmacs": 4.078755024,
+      "gbops": 1044.161286144,
+      "compress_seconds": 123.98229598999023
+    },
+    "Pruned corp-attn_s70": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 39.125496,
+      "gmacs": 3.982942104,
+      "gbops": 1019.633178624,
+      "compress_seconds": 123.57635021209717
+    },
+    "Pruned vbp_s10": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 41.279048,
+      "gmacs": 4.31989248,
+      "gbops": 1105.89247488,
+      "compress_seconds": 6.20421576499939
+    },
+    "Pruned grail-mag-l2_s10": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 41.272904,
+      "gmacs": 4.319287296,
+      "gbops": 1105.737547776,
+      "compress_seconds": 1.7763643264770508
+    },
+    "Pruned grail-wanda_s10": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 41.272904,
+      "gmacs": 4.319287296,
+      "gbops": 1105.737547776,
+      "compress_seconds": 1.821134328842163
+    },
+    "Pruned grail-mag-l2-nocomp_s10": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 41.272904,
+      "gmacs": 4.319287296,
+      "gbops": 1105.737547776,
+      "compress_seconds": 1.6513595581054688
+    },
+    "Pruned vbp_s20": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 38.444506,
+      "gmacs": 4.041053952,
+      "gbops": 1034.509811712,
+      "compress_seconds": 6.181269884109497
+    },
+    "Pruned grail-mag-l2_s20": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 38.43068,
+      "gmacs": 4.039692288,
+      "gbops": 1034.161225728,
+      "compress_seconds": 1.7679798603057861
+    },
+    "Pruned grail-wanda_s20": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 38.43068,
+      "gmacs": 4.039692288,
+      "gbops": 1034.161225728,
+      "compress_seconds": 1.8105442523956299
+    },
+    "Pruned grail-mag-l2-nocomp_s20": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 38.43068,
+      "gmacs": 4.039692288,
+      "gbops": 1034.161225728,
+      "compress_seconds": 1.6416716575622559
+    },
+    "Pruned vbp_s30": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 35.609956,
+      "gmacs": 3.762215424,
+      "gbops": 963.127148544,
+      "compress_seconds": 6.153547763824463
+    },
+    "Pruned grail-mag-l2_s30": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 35.606904,
+      "gmacs": 3.761912832,
+      "gbops": 963.049684992,
+      "compress_seconds": 1.762686014175415
+    },
+    "Pruned grail-wanda_s30": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 35.606904,
+      "gmacs": 3.761912832,
+      "gbops": 963.049684992,
+      "compress_seconds": 1.7994794845581055
+    },
+    "Pruned grail-mag-l2-nocomp_s30": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 35.606904,
+      "gmacs": 3.761912832,
+      "gbops": 963.049684992,
+      "compress_seconds": 1.6335453987121582
+    },
+    "Pruned vbp_s40": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 32.775414,
+      "gmacs": 3.483376896,
+      "gbops": 891.744485376,
+      "compress_seconds": 6.183990955352783
+    },
+    "Pruned grail-mag-l2_s40": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 32.76464,
+      "gmacs": 3.482317824,
+      "gbops": 891.473362944,
+      "compress_seconds": 1.7538883686065674
+    },
+    "Pruned grail-wanda_s40": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 32.76464,
+      "gmacs": 3.482317824,
+      "gbops": 891.473362944,
+      "compress_seconds": 1.7851262092590332
+    },
+    "Pruned grail-mag-l2-nocomp_s40": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 32.76464,
+      "gmacs": 3.482317824,
+      "gbops": 891.473362944,
+      "compress_seconds": 1.6320216655731201
+    },
+    "Pruned vbp_s50": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 29.940856,
+      "gmacs": 3.204538368,
+      "gbops": 820.361822208,
+      "compress_seconds": 6.186376094818115
+    },
+    "Pruned grail-mag-l2_s50": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 29.940856,
+      "gmacs": 3.204538368,
+      "gbops": 820.361822208,
+      "compress_seconds": 1.7334167957305908
+    },
+    "Pruned grail-wanda_s50": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 29.940856,
+      "gmacs": 3.204538368,
+      "gbops": 820.361822208,
+      "compress_seconds": 1.7676808834075928
+    },
+    "Pruned grail-mag-l2-nocomp_s50": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 29.940856,
+      "gmacs": 3.204538368,
+      "gbops": 820.361822208,
+      "compress_seconds": 1.631633996963501
+    },
+    "Pruned vbp_s60": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 27.106298,
+      "gmacs": 2.92569984,
+      "gbops": 748.97915904,
+      "compress_seconds": 6.181766033172607
+    },
+    "Pruned grail-mag-l2_s60": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 27.098632,
+      "gmacs": 2.92494336,
+      "gbops": 748.78550016,
+      "compress_seconds": 1.7242541313171387
+    },
+    "Pruned grail-wanda_s60": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 27.098632,
+      "gmacs": 2.92494336,
+      "gbops": 748.78550016,
+      "compress_seconds": 1.75126051902771
+    },
+    "Pruned grail-mag-l2-nocomp_s60": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 27.098632,
+      "gmacs": 2.92494336,
+      "gbops": 748.78550016,
+      "compress_seconds": 1.6267120838165283
+    },
+    "Pruned vbp_s70": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 24.271756,
+      "gmacs": 2.646861312,
+      "gbops": 677.596495872,
+      "compress_seconds": 6.218162536621094
+    },
+    "Pruned grail-mag-l2_s70": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 24.256384,
+      "gmacs": 2.645348352,
+      "gbops": 677.209178112,
+      "compress_seconds": 1.7234323024749756
+    },
+    "Pruned grail-wanda_s70": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 24.256384,
+      "gmacs": 2.645348352,
+      "gbops": 677.209178112,
+      "compress_seconds": 1.770202875137329
+    },
+    "Pruned grail-mag-l2-nocomp_s70": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 24.256384,
+      "gmacs": 2.645348352,
+      "gbops": 677.209178112,
+      "compress_seconds": 1.6271517276763916
+    },
+    "Pruned grail-mag-l2_s10_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 41.272904,
+      "gmacs": 4.319287296,
+      "gbops": 1105.737547776,
+      "compress_seconds": 9.784470796585083
+    },
+    "Pruned grail-wanda_s10_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 41.272904,
+      "gmacs": 4.319287296,
+      "gbops": 1105.737547776,
+      "compress_seconds": 10.6098313331604
+    },
+    "Pruned grail-mag-l2_s20_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 38.43068,
+      "gmacs": 4.039692288,
+      "gbops": 1034.161225728,
+      "compress_seconds": 9.890705585479736
+    },
+    "Pruned grail-wanda_s20_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 38.43068,
+      "gmacs": 4.039692288,
+      "gbops": 1034.161225728,
+      "compress_seconds": 10.59705662727356
+    },
+    "Pruned grail-mag-l2_s30_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 35.606904,
+      "gmacs": 3.761912832,
+      "gbops": 963.049684992,
+      "compress_seconds": 9.950963973999023
+    },
+    "Pruned grail-wanda_s30_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 35.606904,
+      "gmacs": 3.761912832,
+      "gbops": 963.049684992,
+      "compress_seconds": 10.629925966262817
+    },
+    "Pruned grail-mag-l2_s40_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 32.76464,
+      "gmacs": 3.482317824,
+      "gbops": 891.473362944,
+      "compress_seconds": 9.95553994178772
+    },
+    "Pruned grail-wanda_s40_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 32.76464,
+      "gmacs": 3.482317824,
+      "gbops": 891.473362944,
+      "compress_seconds": 10.612483263015747
+    },
+    "Pruned grail-mag-l2_s50_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 29.940856,
+      "gmacs": 3.204538368,
+      "gbops": 820.361822208,
+      "compress_seconds": 9.918671607971191
+    },
+    "Pruned grail-wanda_s50_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 29.940856,
+      "gmacs": 3.204538368,
+      "gbops": 820.361822208,
+      "compress_seconds": 10.660388231277466
+    },
+    "Pruned grail-mag-l2_s60_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 27.098632,
+      "gmacs": 2.92494336,
+      "gbops": 748.78550016,
+      "compress_seconds": 9.817110300064087
+    },
+    "Pruned grail-wanda_s60_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 27.098632,
+      "gmacs": 2.92494336,
+      "gbops": 748.78550016,
+      "compress_seconds": 10.61329460144043
+    },
+    "Pruned grail-mag-l2_s70_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 24.256384,
+      "gmacs": 2.645348352,
+      "gbops": 677.209178112,
+      "compress_seconds": 9.830556392669678
+    },
+    "Pruned grail-wanda_s70_n4000": {
+      "model": "DeiT-S",
+      "run": "pruned",
+      "activations": "FP16",
+      "size_mb": 24.256384,
+      "gmacs": 2.645348352,
+      "gbops": 677.209178112,
+      "compress_seconds": 10.526942253112793
+    }
+  }
+}

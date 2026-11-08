@@ -1,0 +1,230 @@
+{
+  "FIMA-Q W3A3 float fc2": {
+    "run": "as published",
+    "config": "./configs/3bit/best.py",
+    "w_bit": 3,
+    "a_bit": 3,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 519.8682084083557,
+    "peak_gpu_mib_after_calibration": 4413.083984375,
+    "block_reconstruction_s": 4643.232117176056,
+    "peak_gpu_mib_after_block_reconstruction": 4413.083984375,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 72.736,
+        "ci95": [
+          72.334,
+          73.13
+        ],
+        "vs_fp32": {
+          "diff": -7.1200000000000045,
+          "ci95": [
+            -7.41405,
+            -6.8180000000000005
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 59.78,
+        "ci95": [
+          58.86,
+          60.75025000000001
+        ],
+        "vs_fp32": {
+          "diff": -8.740000000000004,
+          "ci95": [
+            -9.47,
+            -8.05
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 31.85333333333333,
+        "ci95": [
+          31.313249999999996,
+          32.3735
+        ],
+        "vs_fp32": {
+          "diff": -10.386666666666667,
+          "ci95": [
+            -10.780000000000001,
+            -9.959916666666667
+          ]
+        }
+      }
+    }
+  },
+  "FIMA-Q W3A3 float K": {
+    "run": "as published",
+    "config": "./configs/3bit/best.py",
+    "w_bit": 3,
+    "a_bit": 3,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 633.0040481090546,
+    "peak_gpu_mib_after_calibration": 4413.08935546875,
+    "block_reconstruction_s": 5692.9740691185,
+    "peak_gpu_mib_after_block_reconstruction": 4413.08935546875,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 70.28,
+        "ci95": [
+          69.87400000000001,
+          70.692
+        ],
+        "vs_fp32": {
+          "diff": -9.576000000000008,
+          "ci95": [
+            -9.914050000000001,
+            -9.242
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 57.45,
+        "ci95": [
+          56.479749999999996,
+          58.43000000000001
+        ],
+        "vs_fp32": {
+          "diff": -11.070000000000002,
+          "ci95": [
+            -11.88,
+            -10.279750000000002
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 31.306666666666665,
+        "ci95": [
+          30.76658333333333,
+          31.826666666666664
+        ],
+        "vs_fp32": {
+          "diff": -10.933333333333334,
+          "ci95": [
+            -11.356666666666666,
+            -10.493250000000002
+          ]
+        }
+      }
+    }
+  },
+  "FIMA-Q W3A3 float scores": {
+    "run": "as published",
+    "config": "./configs/3bit/best.py",
+    "w_bit": 3,
+    "a_bit": 3,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 628.4073655605316,
+    "peak_gpu_mib_after_calibration": 4413.08935546875,
+    "block_reconstruction_s": 4949.395895719528,
+    "peak_gpu_mib_after_block_reconstruction": 4413.08935546875,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 71.458,
+        "ci95": [
+          71.05195,
+          71.8702
+        ],
+        "vs_fp32": {
+          "diff": -8.398000000000005,
+          "ci95": [
+            -8.713999999999999,
+            -8.084
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 58.67,
+        "ci95": [
+          57.68975,
+          59.630250000000004
+        ],
+        "vs_fp32": {
+          "diff": -9.850000000000003,
+          "ci95": [
+            -10.600249999999999,
+            -9.09
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 31.10333333333333,
+        "ci95": [
+          30.55333333333333,
+          31.60333333333333
+        ],
+        "vs_fp32": {
+          "diff": -11.136666666666667,
+          "ci95": [
+            -11.540000000000001,
+            -10.696583333333335
+          ]
+        }
+      }
+    }
+  },
+  "FIMA-Q W3A3 seed1": {
+    "run": "as published",
+    "config": "./configs/3bit/best.py",
+    "w_bit": 3,
+    "a_bit": 3,
+    "calib_size": 128,
+    "optim_size": 1024,
+    "reconstruct_mlp": false,
+    "calibration_s": 681.7720839977264,
+    "peak_gpu_mib_after_calibration": 4413.08935546875,
+    "block_reconstruction_s": 5928.323263645172,
+    "peak_gpu_mib_after_block_reconstruction": 4413.08935546875,
+    "accuracy": {
+      "ImageNet-1k val": {
+        "top1": 69.6,
+        "ci95": [
+          69.17195000000001,
+          70.00025
+        ],
+        "vs_fp32": {
+          "diff": -10.256000000000009,
+          "ci95": [
+            -10.608049999999999,
+            -9.9259
+          ]
+        }
+      },
+      "ImageNet-V2": {
+        "top1": 56.699999999999996,
+        "ci95": [
+          55.76,
+          57.69
+        ],
+        "vs_fp32": {
+          "diff": -11.820000000000007,
+          "ci95": [
+            -12.6,
+            -11.01
+          ]
+        }
+      },
+      "ImageNet-R": {
+        "top1": 29.896666666666665,
+        "ci95": [
+          29.349999999999998,
+          30.393416666666667
+        ],
+        "vs_fp32": {
+          "diff": -12.343333333333334,
+          "ci95": [
+            -12.776666666666667,
+            -11.89316666666667
+          ]
+        }
+      }
+    }
+  }
+}

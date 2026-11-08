@@ -1,15 +1,15 @@
 """Download ImageNet-1k from Hugging Face (ILSVRC/imagenet-1k, gated) into folders by synset id.
 
     hf auth login                      # once, after accepting the terms on the dataset page
-    python prepare_imagenet.py --out ../data/imagenet --train-shards 2
+    python scripts/data/prepare_imagenet.py --out ../data/imagenet --train-shards 2
 
 Writes <out>/val/<wnid>/*.JPEG (all 50 000 images) and <out>/train/<wnid>/*.JPEG from the first
 `--train-shards` training files (about 4 300 images each). The training images are only a pool to draw
 calibration sets from; nothing is trained here. The layout is the ImageFolder one that our notebooks and the
 published methods' code read.
 """
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))  # repo root, for deitc
 import argparse
-import io
 from pathlib import Path
 
 import pyarrow.parquet as pq

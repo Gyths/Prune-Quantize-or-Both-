@@ -14,16 +14,27 @@ Sobre esa base se propone un procedimiento post-entrenamiento. Mide la sensibili
 
 ## Qué hay aquí
 
-Lo hecho hasta ahora cubre los dos modelos de referencia, las líneas base densas guardadas como archivos reales y el primer método publicado ubicado en el gráfico. Las decisiones detrás del protocolo, con sus razones, están en [`DECISIONS.es.md`](DECISIONS.es.md).
+Las secciones de abajo cubren los dos modelos de referencia, las líneas base densas guardadas como archivos reales y el primer método publicado ubicado en el gráfico. El trabajo posterior, los demás métodos publicados, la poda, nuestra asignación y las pruebas de activaciones, está en los cuadernos 03 a 06 y en la hoja de ruta, y su redacción en esta página viene después. Las decisiones detrás del protocolo, con sus razones, están en [`DECISIONS.es.md`](DECISIONS.es.md).
 
 | Ruta | Rol |
 |---|---|
 | `01_rebuild_deit.ipynb` | DeiT reconstruido desde cero y verificado contra timm |
 | `02_dense_baselines.ipynb` | DeiT-S y DeiT-Ti en FP32, FP16, INT8 e INT4 como archivos reales |
-| `deitc/` | el código que comparten cuadernos y scripts: modelo, datos, archivos empaquetados, evaluación y la lectura de checkpoints publicados |
-| `prepare_imagenet.py`, `make_calib_list.py` | los datos, y las imágenes de calibración que comparten todos los métodos (`splits/calib_seed0.txt`) |
-| `pack_published.py`, `evaluate_file.py` | del checkpoint de un método publicado a un archivo verificado, y de un archivo a sus resultados |
+| `03_known_methods.ipynb` | los métodos de cuantización publicados, tal como se publicaron y solo pesos, frente a sus artículos |
+| `04_known_pruning.ipynb` | los métodos de poda publicados, sin reentrenar |
+| `05_fragility.ipynb` | qué parte de FIMA-Q es frágil, frente a las predicciones de `ABLATIONS.md` |
+| `06_prune_quantize_curves.ipynb` | modelos podados a pocos bits, las tres curvas de nuestra asignación y los costos además del tamaño |
+| `deitc/` | el código que comparten cuadernos y scripts: modelo, datos, archivos empaquetados, evaluación y archivos de resultados, la lectura de checkpoints publicados, costos, poda y redondeo |
+| `scripts/setup_third_party.sh` | el código de los métodos publicados, clonado en los commits que usamos, con nuestros parches |
+| `scripts/data/prepare_imagenet.py`, `scripts/data/make_calib_list.py` | los datos, y las imágenes de calibración que comparten todos los métodos (`splits/calib_seed0.txt`) |
+| `scripts/quantize/pack_published.py`, `scripts/quantize/evaluate_file.py` | del checkpoint de un método publicado a un archivo verificado, y de un archivo a sus resultados |
 | `methods/adalog/` | nuestro parche al código de AdaLog y el script que lo ejecuta |
+| `methods/aphq/`, `methods/fimaq/`, `methods/repq/`, `methods/ptq4vit/` | lo mismo para APHQ-ViT, FIMA-Q, RepQ-ViT y PTQ4ViT, y las pruebas de activaciones de FIMA-Q |
+| `deitc/pruning.py`, `scripts/prune/prune_points.py`, `scripts/prune/combine_points.py` | la poda sin reentrenar (nuestra reimplementación de CORP, GRAIL y la etapa de poda de VBP), y los modelos podados llevados a pocos bits |
+| `scripts/allocate/sensitivity.py`, `scripts/allocate/allocate.py` | la sensibilidad de cada capa y bloque, y nuestra asignación por bloque bajo un tamaño objetivo |
+| `scripts/measure/measure_costs.py`, `scripts/measure/measure_latency.py` | MACs, BOPs, latencia y memoria |
+| `scripts/quantize/w8a8_torchao.py`, `scripts/quantize/a8_score.py`, `scripts/measure/gemlite_test.py`, `scripts/prune/quantize_then_prune.py` | los archivos INT8, las activaciones de 8 bits sobre modelos empaquetados, los kernels de GemLite y la comprobación del orden de compresión |
+| `ABLATIONS.md` | las ablaciones y las pruebas de activaciones, con lo que esperábamos antes de ejecutarlas |
 | `outputs/*_summary.json` | las cifras de esta página |
 
 ## 1. Reconstrucción de DeiT-S
@@ -72,31 +83,55 @@ AdaLog (Wu et al., 2024) es el primer método ejecutado así, con sus 32 imágen
 
 En los tres archivos, los pesos releídos son idénticos a los de AdaLog, y la precisión en ImageNet-1k val desde el archivo coincide con la que reporta el propio código de AdaLog. Las diferencias pareadas contra FP32 y sus intervalos están en `outputs/published_summary.json`.
 
+## Código de terceros
+
+Los métodos publicados no forman parte de este repositorio, porque cada uno tiene su propia licencia. `bash scripts/setup_third_party.sh` clona cada uno junto a esta carpeta, en `../third_party/`, en el commit que usamos, y aplica nuestro parche de `methods/<nombre>/` donde lo hay, con los nombres de carpeta que buscan `methods/*/run.sh` y `deitc/pruning.py`. VBP está bajo AGPL-3.0, así que nuestro código solo lo llama desde esa carpeta y no se copia nada de él aquí; revisa la licencia de cada repositorio antes de redistribuir algo.
+
+| Método | Repositorio | Commit |
+|---|---|---|
+| AdaLog | https://github.com/GoatWu/AdaLog | 75a57d2 |
+| APHQ-ViT | https://github.com/GoatWu/APHQ-ViT | 84c9fde |
+| FIMA-Q | https://github.com/ShiheWang/FIMA-Q | 64c4b00 |
+| RepQ-ViT | https://github.com/zkkli/RepQ-ViT | a160561 |
+| PTQ4ViT | https://github.com/hahnyuan/PTQ4ViT | b42c790 |
+| GRAIL | https://github.com/TWWinde/GRAIL_Compensation | ba5e48b |
+| VBP (solo la etapa de poda) | https://github.com/boschresearch/variance-based-pruning | b6834b4 |
+| GemLite (kernels para una comprobación) | https://github.com/dropbox/gemlite | f649e80 |
+
+CORP no tiene código público; `deitc/pruning.py` es nuestra reimplementación a partir de su artículo.
+
 ## Cómo ejecutarlo
 
 ```bash
-# Python ≥ 3.10, se recomienda GPU con CUDA
-pip install torch torchvision timm safetensors matplotlib jupyter
+# Python 3.10 y una GPU con CUDA; usamos torch 2.11 y timm 1.0.30
+pip install torch torchvision timm torchao safetensors scipy matplotlib jupyter huggingface_hub pyarrow
 ```
 
-ImageNet-V2 matched-frequency es público ([Hugging Face](https://huggingface.co/datasets/vaishaal/ImageNetV2)) e ImageNet-R está disponible por sus autores. ImageNet-1k requiere aceptar sus términos en Hugging Face; después, `python prepare_imagenet.py --out ../data/imagenet` escribe las 50 000 imágenes de validación y un conjunto de imágenes de entrenamiento para calibrar. Los cuadernos leen los tres conjuntos desde `../data/` o desde `IMAGENET_VAL_DIR`, `IMAGENETV2_DIR` e `IMAGENETR_DIR`.
+Los métodos publicados necesitan versiones más antiguas, así que corren en un segundo entorno con Python 3.10, torch 2.2.2 y timm 0.9.2, más lo que pide cada repositorio. Su intérprete va en `ADALOG_PY`, y `PY` apunta al primer entorno para los pasos en que el script de un método llama al nuestro.
+
+ImageNet-V2 matched-frequency es público ([Hugging Face](https://huggingface.co/datasets/vaishaal/ImageNetV2)) e ImageNet-R está disponible por sus autores. ImageNet-1k requiere aceptar sus términos en Hugging Face; después, `python scripts/data/prepare_imagenet.py --out ../data/imagenet` escribe las 50 000 imágenes de validación y un conjunto de imágenes de entrenamiento para calibrar. Los cuadernos leen los tres conjuntos desde `../data/` o desde `IMAGENET_VAL_DIR`, `IMAGENETV2_DIR` e `IMAGENETR_DIR`.
 
 ```bash
 jupyter nbconvert --to notebook --execute 01_rebuild_deit.ipynb    # cerca de un minuto en una RTX 4070
 jupyter nbconvert --to notebook --execute 02_dense_baselines.ipynb
-python make_calib_list.py --train ../data/imagenet/train --seed 0 # la lista de calibración común
-bash methods/adalog/run.sh                                        # AdaLog, ver el script para su entorno
+python scripts/data/make_calib_list.py --train ../data/imagenet/train --seed 0 # la lista de calibración común
+bash scripts/setup_third_party.sh                                 # el código de los métodos publicados
 ```
+
+Los cuadernos 03 a 06 leen los resultados de `outputs/`, así que muestran todas las tablas y gráficos desde un clon recién descargado sin ejecutar nada en la GPU. Con `RERUN = True` al inicio de uno, llama en cambio a los scripts que produjeron esos resultados, lo que toma horas, porque cada búsqueda de FIMA-Q o APHQ-ViT dura de 40 minutos a 2 horas en nuestra RTX 4070 de 12 GB. En esa tarjeta dos búsquedas a la vez no terminan antes que una tras otra, así que conviene ejecutarlas de una en una, lo que además mantiene válido cada tiempo de compresión. La latencia del cuaderno 06 se midió en esa tarjeta sin nada más corriendo, y los kernels de pocos bits que probamos no estaban compilados para ella, así que esos tiempos describen solo esta GPU. Todos los scripts se ejecutan desde la raíz del repositorio.
 
 ## Hoja de ruta
 
 - [x] Reconstruir DeiT-S, verificarlo y contabilizar su tamaño
 - [x] Las líneas base densas como archivos reales en ImageNet-1k val, V2 y R
 - [x] La lista de calibración común y el flujo para métodos publicados, con AdaLog como el primero
-- [ ] Los demás métodos publicados con código público (RepQ-ViT, PTQ4ViT, FQ-ViT, APHQ-ViT, FIMA-Q, I&S-ViT, ERQ) y la poda post-entrenamiento
-- [ ] Sensibilidad de cada bloque a la poda y a los bits de los pesos
-- [ ] Poda estructurada de cabezas y neuronas del MLP con compensación por mínimos cuadrados
-- [ ] Asignación por bloque y las curvas de cuantizar, podar y combinar
+- [x] Los demás métodos publicados con el mismo protocolo: APHQ-ViT, FIMA-Q, RepQ-ViT y PTQ4ViT, tal como se publicaron y solo pesos (FQ-ViT, I&S-ViT y ERQ quedan fuera)
+- [x] Poda sin reentrenar: CORP, reimplementado con su compensación por mínimos cuadrados, GRAIL y la etapa de poda de VBP
+- [x] Sensibilidad de cada capa y bloque a la poda y a los bits de los pesos
+- [x] Asignación por bloque y las curvas de solo bits, solo poda y combinada
+- [x] La serie W8A8 y las activaciones de 8 bits sobre nuestros modelos
+- [ ] Qué activaciones de FIMA-Q son frágiles (ejecuciones terminadas, resultados en revisión)
+- [ ] Redacción de los resultados en esta página y en el artículo
 
 ## Referencias principales
 

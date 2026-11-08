@@ -16,19 +16,21 @@ class PatchEmbed(nn.Module):
 
 
 class Attention(nn.Module):
-    def __init__(self, dim=384, num_heads=6):
+    def __init__(self, dim=384, num_heads=6, qk_dim=None):
         super().__init__()
         self.num_heads = num_heads
         self.head_dim = dim // num_heads
-        self.scale = self.head_dim ** -0.5
-        self.qkv = nn.Linear(dim, 3 * num_heads * self.head_dim)   # rows: [q heads | k heads | v heads]
+        self.qk_dim = qk_dim or self.head_dim                      # below head_dim once Q and K are pruned
+        self.scale = self.head_dim ** -0.5                         # a pruned model keeps the original scale
+        self.qkv = nn.Linear(dim, num_heads * (2 * self.qk_dim + self.head_dim))   # rows: [q heads | k heads | v heads]
         self.proj = nn.Linear(num_heads * self.head_dim, dim)
         self.last_attn = None                  # filled when record_attn=True
 
     def forward(self, x, record_attn=False):
         B, N, _ = x.shape
-        qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, self.head_dim).permute(2, 0, 3, 1, 4)
-        q, k, v = qkv.unbind(0)                # each (B, H, N, 64)
+        sizes = [self.num_heads * self.qk_dim] * 2 + [self.num_heads * self.head_dim]
+        q, k, v = [t.reshape(B, N, self.num_heads, -1).transpose(1, 2) for t in self.qkv(x).split(sizes, dim=-1)]
+                                               # each (B, H, N, 64); q and k have fewer columns once pruned
         attn = (q * self.scale) @ k.transpose(-2, -1)
         attn = attn.softmax(dim=-1)            # (B, H, N, N)
         if record_attn:
@@ -49,12 +51,12 @@ class Mlp(nn.Module):
 
 
 class Block(nn.Module):
-    def __init__(self, dim=384, num_heads=6, mlp_ratio=4.0):
+    def __init__(self, dim=384, num_heads=6, mlp_ratio=4.0, hidden=None, qk_dim=None):
         super().__init__()
         self.norm1 = nn.LayerNorm(dim, eps=1e-6)
-        self.attn = Attention(dim, num_heads)
+        self.attn = Attention(dim, num_heads, qk_dim)
         self.norm2 = nn.LayerNorm(dim, eps=1e-6)
-        self.mlp = Mlp(dim, int(dim * mlp_ratio))
+        self.mlp = Mlp(dim, hidden or int(dim * mlp_ratio))
 
     def forward(self, x, record_attn=False):
         x = x + self.attn(self.norm1(x), record_attn)
@@ -81,6 +83,24 @@ class DeiT(nn.Module):
             hidden.append(x)
         logits = self.head(self.norm(x)[:, 0])  # classify from the class token
         return (logits, hidden) if return_hidden else logits
+
+
+def from_state_dict(sd, mlp_act="gelu"):
+    """A DeiT with the layer sizes a state_dict holds, with its weights loaded. Pruned models come back this way.
+    `mlp_act="relu"` is for models from APHQ-ViT's MLP reconstruction, which swaps GELU for ReLU."""
+    dim = sd["cls_token"].shape[-1]
+    depth = 1 + max(int(k.split(".")[1]) for k in sd if k.startswith("blocks."))
+    num_heads = dim // 64
+    model = DeiT(dim=dim, depth=depth, num_heads=num_heads)
+    for i in range(depth):
+        rows = sd[f"blocks.{i}.attn.qkv.weight"].shape[0]
+        qk_dim = (rows // num_heads - 64) // 2
+        model.blocks[i] = Block(dim, num_heads, hidden=sd[f"blocks.{i}.mlp.fc1.weight"].shape[0], qk_dim=qk_dim)
+    model.load_state_dict(sd, strict=True)
+    if mlp_act == "relu":
+        for blk in model.blocks:
+            blk.mlp.act = nn.ReLU()
+    return model.eval()
 
 
 def deit_small(): return DeiT(dim=384, depth=12, num_heads=6)

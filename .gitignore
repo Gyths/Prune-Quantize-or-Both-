@@ -1,4 +1,11 @@
+# Model files, logs and scratch results stay local; the numbers and per-image results behind every figure are committed.
 outputs/*
 !outputs/*_summary.json
+!outputs/*_per_image.npz
+!outputs/fragility_*.json
+!outputs/fragility_*.npz
+!outputs/clipping_*.json
+!outputs/combined_wa.json
+!outputs/allocations/
 .ipynb_checkpoints/
 __pycache__/
